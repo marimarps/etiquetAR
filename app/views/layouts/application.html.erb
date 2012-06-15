@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<link href="/assets/application.css" media="all" rel="stylesheet"
+type="text/css" />
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
