@@ -1,6 +1,14 @@
 EtiquetAR::Application.routes.draw do
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
   root to: 'static_pages#home'
+
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  #The use of via: :delete for the signout route, which indicated that it should be invoked using an HTTP DELETE request
+  match '/signout', to: 'sessions#destroy', via: :delete
+
+
 
   match '/signup',  to: 'users#new'
 
