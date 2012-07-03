@@ -4,10 +4,41 @@
   <head>
     <title>etiquetAR | <%= yield(:title) %></title>
   </head>
+
   <body>
-    <h1>Sign up in etiquetAR</h1>
-    <p>
-      This is the sign up page for etiquetAR.
-    </p>
+	<h1>Sign up</h1>
+
+	<div class="row">
+	  <div class="span6 offset3">
+	    <%= form_for(@user) do |f| %>
+      	<%= render 'shared/error_messages' %> <!--To include error messages in clase the inputs in the form are wrong-->
+
+	      <%= f.label :name %>
+	      <%= f.text_field :name %>
+	      <!-- Produces
+	     	 <label for="user_name">Name</label>
+			 <input id="user_name" name="user[name]" size="30" type="text" />
+	  	  -->
+
+
+	      <%= f.label :email %>
+	      <%= f.text_field :email %>
+
+
+	      <%= f.label :password %>
+	      <%= f.password_field :password %>
+	       <!-- Produces
+	     	<label for="user_password">Password</label><br />
+			<input id="user_password" name="user[password]" size="30" type="password" />
+	  	  -->
+
+	      <%= f.label :password_confirmation, "Confirmation" %>
+	      <%= f.password_field :password_confirmation %>
+
+	      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+	    <% end %>
+	  </div>
+	</div>
+
   </body>
 </html>
