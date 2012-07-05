@@ -34,4 +34,12 @@ describe "Contact page" do
  end
 
 
+describe "Tag It page" do
+  before { visit tagit_path } 
+      it { should have_selector('h1', :text => 'Personalize, group and print your TAGS')}
+      it { should have_selector('title', :text => 'Tag It!')}
+ end
+
+
+
 end

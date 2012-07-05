@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <% provide(:title, 'Tag It!') %>
+    <title>estiquetAR |  <%= yield(:title) %></title>
+  </head>
+  <body>
+     <h1>Personalize, group and print your TAGS</h1>
+  </body>
+
+  <div class="center hero-unit">
+  <h2>
+   This is the page where you create your qr codes.
+  </h2>
+
+  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+</div>
+
+ 
+ <% provide(:title, @qr) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @qr.to_s %>
+      </h1>
+    </section>
+  </aside>
+</div>
+
+</html>
