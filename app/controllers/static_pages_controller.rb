@@ -2,7 +2,7 @@
 #Controller for the QRCode llibrary
 
 class StaticPagesController < ApplicationController
-	
+	require 'rqrcode'
   def home
   end
 
@@ -24,9 +24,7 @@ class StaticPagesController < ApplicationController
   end
 
   def qrcode
-  		#@qr= User.new(name: "Iago")
   		@qr = RQRCode::QRCode.new('hello world')
- 		#@qr = RQRCode::QRCode.new('hello world')
   end
 
 
