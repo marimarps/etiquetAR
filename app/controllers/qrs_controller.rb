@@ -51,7 +51,8 @@ class QrsController < ApplicationController
   # POST /qrs
   # POST /qrs.json
   def create
-    @qr = Qr.new(params[:qr])
+    #@qr = Qr.new(params[:qr])
+    @qr=current_user.qrs.build(params[:qr])
 
     respond_to do |format|
       if @qr.save
