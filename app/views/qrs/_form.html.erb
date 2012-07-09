@@ -1,0 +1,21 @@
+<%= form_for(@qr) do |f| %>
+  <% if @qr.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@qr.errors.count, "error") %> prohibited this qr from being saved:</h2>
+
+      <ul>
+      <% @qr.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :default_resource %><br />
+    <%= f.text_field :default_resource %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

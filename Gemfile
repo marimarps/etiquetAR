@@ -4,6 +4,7 @@ gem 'rails', '3.2.6'
 gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'rqrcode-rails3'
+gem 'mini_magick'
 
 
 # Bundle edge Rails instead:

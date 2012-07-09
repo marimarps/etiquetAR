@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120703143206) do
+ActiveRecord::Schema.define(:version => 20120709135811) do
+
+  create_table "qr_codes", :force => true do |t|
+    t.string   "default_resource"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "qrs", :force => true do |t|
+    t.string   "default_resource"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

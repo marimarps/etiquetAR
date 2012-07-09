@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Default resource:</b>
+  <%= @qr.default_resource %>
+
+</p>
+
+<p>
+<b>This is the corresponding image:</b>
+<p>Hey, you can download some cool QR Codes for this page by clicking the link below:</p>
+<p><%= link_to "SVG", new_qr_path("svg") %></p>
+<p><%= link_to "PNG", new_qr_path("png") %></p>
+
+
+<%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{'http://www.google.com/'}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+
+<%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{'@qr.default_resource'}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+
+
+<%= link_to 'Edit', edit_qr_path(@qr) %> |
+<%= link_to 'Back', qrs_path %>
