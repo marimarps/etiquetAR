@@ -16,16 +16,12 @@ class StaticPagesController < ApplicationController
   end
 
   def tagit
-    respond_to do |format|
-      format.html
-      @qr = format.svg { render :qrcode => "http://helloworld.com", :size => 4 }
-      #format.png { render :qrcode => "http://helloworld.com", :size => 4 }
-    end
   end
 
-  def qrcode
-  		@qr = RQRCode::QRCode.new('hello world')
-  end
+  #EXAMPLE: how to define a QRCode to be printed
+  #def qrcode
+  		#@qr = RQRCode::QRCode.new('hello world')
+  #end
 
 
 end
