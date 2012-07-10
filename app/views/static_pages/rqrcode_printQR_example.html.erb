@@ -56,3 +56,15 @@
 </div>
 
 </html>
+
+EXAMPLES HOW TO GET THE IMAGE FROM THE CHART.
+Net::HTTP.start("#{DOMAIN_URL}") { |http|
+        resp = http.get(PARAMS)
+        open( "#{OUTPUT_DIR}/#{file_name}.png", 'wb' ) { |file|
+          file.write(resp.body)
+        }
+}
+
+Where DOMAIN_URL: http://chart.apis.google.com
+PARAMS: 
+/chart?cht=bvg&chbh=a&chd=s:vttusty&chs=500x300&chxt=x,y&chxl=0:|Sun|Mon|Tue|Wed|Thu|Fri|Sat|1:|0|2|4|6|8|10|12
