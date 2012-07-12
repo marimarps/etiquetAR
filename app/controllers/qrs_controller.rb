@@ -1,7 +1,10 @@
+require 'open-uri'
+
 class QrsController < ApplicationController
   # GET /qrs
   # GET /qrs.json
-  require 'rqrcode'
+ 
+
   def index
     @qrs = Qr.all
 
@@ -23,6 +26,14 @@ class QrsController < ApplicationController
     end
   end
 
+
+  def download
+    @qr = Qr.find(params[:id])
+    url = "http://chart.apis.google.com/chart?cht=qr&chl=#{@qr.default_resource}&chs=120x120&choe=UTF-8"
+    image = open(url).read
+
+    send_data(image, :filename => "qr.png", :type => 'image/png')
+  end
   # GET /qrs/new
   # GET /qrs/new.json
   def new
@@ -90,4 +101,51 @@ class QrsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  #PRINTING IMAGES: Talks to js in qrs.js.cofee
+  def export_as_image
+    width = params[:width].to_i
+    height = params[:height].to_i
+    data = {}
+     height.times do |y|
+       if params["r#{y}"]
+         row = params["r#{y}"].split(%r{,\s*})
+       end
+       row.size.times do |r|
+         if row[r]
+           pixel = row[r].to_s.split(':')
+         end
+         pixel[0] = pixel[0].to_s.rjust(6,'0')
+         if pixel.size == 2
+           pixel[1].to_i.times do
+             (data[y] ||= []) << pixel[0]
+           end
+         else
+           (data[y] ||= []) << pixel[0]
+         end
+       end
+     end
+
+     img =  Magick::Image.new(width , height )
+     q = Array.new
+     width.times do
+       q << Magick::Pixel.new(0,0,0,0)
+     end
+     height.times do |y|
+       width.times do |x|
+    q[x].red   = data[y][x][0..1].hex
+    q[x].green = data[y][x][2..3].hex
+    q[x].blue  = data[y][x][4..5].hex
+       end
+       img.store_pixels(0, y, width, 1, q)
+     end
+
+     img.format = "PNG"
+
+     send_data(img.to_blob , :disposition => 'inline', :type => 'image/png', :filename => "chart.png?#{rand(99999999).to_i}")
+
+  end
+
+
 end

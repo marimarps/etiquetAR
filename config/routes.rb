@@ -10,7 +10,7 @@ EtiquetAR::Application.routes.draw do
 
   ####QR_CODES ROUTES
   match '/qrs/index', to: 'qrs#new'
-
+  match '/qrs/:id/download', to: 'qrs#download'
 
   ####USERS ROUTES
   match '/signup', to: 'users#new'

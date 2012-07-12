@@ -6,6 +6,10 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'rqrcode-rails3'
 gem 'mini_magick'
 
+require 'rqrcode'
+require 'base64'
+require 'RMagick'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
