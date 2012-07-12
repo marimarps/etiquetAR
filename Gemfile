@@ -6,6 +6,8 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'rqrcode-rails3'
 gem 'mini_magick'
 
+
+require 'open-uri'
 require 'rqrcode'
 require 'base64'
 require 'RMagick'

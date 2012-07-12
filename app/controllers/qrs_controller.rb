@@ -1,4 +1,3 @@
-require 'open-uri'
 
 class QrsController < ApplicationController
   # GET /qrs
