@@ -26,6 +26,10 @@ class QrsController < ApplicationController
     end
   end
 
+  def go
+    @qr = Qr.find(params[:id])
+    redirect_to @qr.default_resource
+  end
 
   def download
     @qr = Qr.find(params[:id])
