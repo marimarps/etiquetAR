@@ -8,7 +8,7 @@ gem 'mini_magick'
 
 
 require 'open-uri'
-require 'rqrcode'
+gem 'rqrcode'
 require 'base64'
 require 'RMagick'
 
