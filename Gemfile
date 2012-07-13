@@ -10,7 +10,7 @@ gem 'mini_magick'
 require 'open-uri'
 gem 'rqrcode'
 require 'base64'
-require 'RMagick'
+### gem 'RMagick'
 
 
 # Bundle edge Rails instead:
