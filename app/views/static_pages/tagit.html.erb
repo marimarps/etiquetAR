@@ -6,19 +6,21 @@
     <title>estiquetAR |  <%= yield(:title) %></title>
   </head>
   <body>
-     <h1>Personalize, group and print your TAGS</h1>
+     <h1>Personalize, group into collections and print your TAGS</h1>
   </body>
 
-  <div class="center hero-unit">
-  <h2>
-   This is the page where you create your qr codes.
-  </h2>
-
- 
-</div>
+  <div class=" hero-unit">
+  
 
  <p>Create a new TAG.</p>
 <p><%= link_to "New tag", new_qr_path, class: "btn btn-large btn-primary" %></p>
+
+ <p>Your TAGS.</p>
+<p><%= link_to "Your Tags", qrs_path, class: "btn btn-large btn-primary" %></p>
+</div>
+
+
+
 
 </html>
 

@@ -17,8 +17,6 @@ class QrsController < ApplicationController
   # GET /qrs/1.json
   def show
     @qr = Qr.find(params[:id])
-    #@qr_toshow = RQRCode::QRCode.new('hello world')
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @qr }
@@ -37,6 +35,7 @@ class QrsController < ApplicationController
 
     send_data(image, :filename => "qr.png", :type => 'image/png')
   end
+
   # GET /qrs/new
   # GET /qrs/new.json
   def new

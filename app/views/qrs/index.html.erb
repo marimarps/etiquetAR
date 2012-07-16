@@ -1,4 +1,5 @@
-<h1>Listing qrs</h1>
+
+<h1>Your List of TAGS</h1>
 
 <table>
   <tr>
@@ -8,16 +9,27 @@
     <th></th>
   </tr>
 
-<% @qrs.each do |qr| %>
-  <tr>
-    <td><%= qr.default_resource %></td>
-    <td><%= link_to 'Show', qr %></td>
-    <td><%= link_to 'Edit', edit_qr_path(qr) %></td>
-    <td><%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+
+<div class="span8">
+  <!--We select all the qrs of the current_user-->
+  <% @qrs=current_user.qrs(params[:id])%>
+
+  <% @qrs.each do |qr| %>
+
+      <tr>
+        <td><%= qr.default_resource %></td>
+        <td><%= link_to 'Show', qr %></td>
+        <td><%= link_to 'Edit', edit_qr_path(qr) %></td>
+        <td><%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+
+  <% end %>
+
 </table>
 
-<br />
-
 <%= link_to 'New Qr', new_qr_path %>
+
+</div>
+
+<br/>
+

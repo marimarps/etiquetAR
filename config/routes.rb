@@ -27,6 +27,7 @@ EtiquetAR::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
   match '/signup', to: 'users#new'
 
+
   match '/tagit', to: 'static_pages#tagit'
   match '/qrcode', to: 'static_pages#qrcode'
 
