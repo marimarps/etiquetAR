@@ -40,8 +40,11 @@ class ResourcesController < ApplicationController
   # POST /resources
   # POST /resources.json
   def create
-    #@resource = Resource.new(params[:resource])
-    @resource=current_qr.build(params[:resource])
+    #@qr_user=current_user.qrs.build(params[:qr])
+    #@qr=Qr.find(params[:id])
+
+    @qr=current_user.qrs.build(params[:qr])
+    @resource = Resource.new(params[:resource] [:@qr_user.id])
 
     #example, what we have done in Qrs
     #@qr = Qr.new(params[:qr])
