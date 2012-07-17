@@ -10,11 +10,19 @@
       </ul>
     </div>
   <% end %>
-
+  <%= f.fields_for :resources do |resource| %>
+    <div class="well">
+    <%= resource.blank? %>
+     <%= f.label :name %> <%= resource.text_field :name %>
+     <%= f.label :uri %> <%= resource.text_field :uri %>
+   </div>
+   <% end %>
+<!--
   <div class="field">
     <%= f.label :default_resource %><br />
     <%= f.text_field :default_resource %>
   </div>
+-->
   <div class="actions">
     <%= f.submit %>
   </div>

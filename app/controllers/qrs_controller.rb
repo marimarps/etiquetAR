@@ -40,11 +40,14 @@ class QrsController < ApplicationController
   # GET /qrs/new.json
   def new
   @qr = Qr.new
- # @qr = RQRCode::QRCode.new('hello world')
-  
+  #We add a resource if it isn't one
+  @resource = @qr.resources.build if @qr.resources.empty?
+
+  p @qr
+  p @qr.resources
   respond_to do |format|
    format.html
-    format.json { render json: @qr }
+   format.json { render json: @qr }
   end
 
   #respond_to do |format|
@@ -63,10 +66,13 @@ class QrsController < ApplicationController
   # POST /qrs.json
   def create
     #@qr = Qr.new(params[:qr])
-    @qr=current_user.qrs.build(params[:qr])
+    @qr = current_user.qrs.build(params[:qr])
 
+    #We create a default resource for the QR.
+    @resource = @qr.resources.build
+    
     respond_to do |format|
-      if @qr.save
+      if @qr.save && @resource.save
         format.html { redirect_to @qr, notice: 'Qr was successfully created.' }
         format.json { render json: @qr, status: :created, location: @qr }
       else
