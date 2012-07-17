@@ -1,7 +1,10 @@
 EtiquetAR::Application.routes.draw do
+  resources :collections
+
+  resources :resources
+
   resources :qrs
 
-  resources :qr_codes
   resources :users
   resources :rqr
 

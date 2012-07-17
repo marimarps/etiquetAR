@@ -18,10 +18,4 @@ class StaticPagesController < ApplicationController
   def tagit
   end
 
-  #EXAMPLE: how to define a QRCode to be printed
-  #def qrcode
-  		#@qr = RQRCode::QRCode.new('hello world')
-  #end
-
-
 end

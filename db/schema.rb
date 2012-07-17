@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120709161636) do
+ActiveRecord::Schema.define(:version => 20120717101355) do
+
+  create_table "collections", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "user_id"
+  end
 
   create_table "qr_codes", :force => true do |t|
     t.string   "default_resource"
@@ -24,6 +31,17 @@ ActiveRecord::Schema.define(:version => 20120709161636) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.integer  "user_id"
+    t.string   "collection_id"
+  end
+
+  create_table "resources", :force => true do |t|
+    t.string   "name"
+    t.string   "uri"
+    t.string   "type"
+    t.string   "image_location"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "qr_id"
   end
 
   create_table "users", :force => true do |t|
