@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-EtiquetAR::Application.load_tasks
+#EtiquetAR::Application.load_tasks
