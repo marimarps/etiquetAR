@@ -4,8 +4,7 @@
 <p>
   <b>This QRCode belongs to:</b>
   <%= @qr.user_id %>
-  <b>Default resource:</b>
-  <%= @qr.default_resource %>
+ 
 
 
 </p>
@@ -17,10 +16,8 @@
 <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{@qr.default_resource}&chs=120x120&choe=UTF-8", :size => "120x120")%>
 
 
-
 <%= link_to 'Download', url_for(:action => 'download', :id => @qr.id) %> |
 <%= link_to 'Edit', edit_qr_path(@qr) %> |
 <%= link_to 'Your TAGS', qrs_path %>
-
 
 </Div>

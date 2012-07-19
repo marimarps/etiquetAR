@@ -17,10 +17,11 @@
   <% @qrs.each do |qr| %>
 
       <tr>
-        <td><%= qr.default_resource %></td>
+        <td>TAG ID: <%= qr.id%></td>
         <td><%= link_to 'Show', qr %></td>
         <td><%= link_to 'Edit', edit_qr_path(qr) %></td>
         <td><%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Download', url_for(:action => 'download', :id => qr.id) %> </td>
       </tr>
 
   <% end %>
