@@ -2,6 +2,9 @@
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
+require 'rake'
+require 'bundler'
+
 require File.expand_path('../config/application', __FILE__)
 
-#EtiquetAR::Application.load_tasks
+EtiquetAR::Application.load_tasks
