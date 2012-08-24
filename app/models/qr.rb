@@ -1,5 +1,5 @@
 class Qr < ActiveRecord::Base
-  attr_accessible :default_resource, :resources, :resources_attributes
+  attr_accessible :default_resource, :resources, :resources_attributes, :qr_name
   has_many :resources, dependent: :destroy
   accepts_nested_attributes_for :resources
   belongs_to :user  

@@ -1,23 +1,19 @@
 
+
 <p id="notice"><%= notice %></p>
 
+<div class="well">
+<p><b>QR code <%=@qr.id%>:</b></p>
+
+<%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{@qr_uri}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+
 <p>
-  <b>This QRCode belongs to:</b>
-  <%= @qr.user_id %>
- 
-
-
+	<%= link_to 'Download', url_for(:action => 'download', :id => @qr.id) %> |
+	<%= link_to 'Edit', edit_qr_path(@qr) %>
 </p>
 
+</div>
+
 <p>
-<div class="well">
-<b>This is your new QR code corresponding image:</b>
-
-<%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{@qr.default_resource}&chs=120x120&choe=UTF-8", :size => "120x120")%>
-
-
-<%= link_to 'Download', url_for(:action => 'download', :id => @qr.id) %> |
-<%= link_to 'Edit', edit_qr_path(@qr) %> |
-<%= link_to 'Your TAGS', qrs_path %>
-
-</Div>
+	<%= link_to 'Your TAGS', qrs_path %>
+</p>

@@ -6,6 +6,9 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'rqrcode-rails3'
 gem 'mini_magick'
 gem "therubyracer", :group => :assets, :platform => :ruby
+#For pagination of QR coes
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
 
 require 'open-uri'
 gem 'rqrcode'

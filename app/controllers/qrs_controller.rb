@@ -6,6 +6,8 @@ class QrsController < ApplicationController
 
   def index
     @qrs = Qr.all
+    #In case we want to paginate the qr codes
+    #@qrs = Qr.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,6 +19,7 @@ class QrsController < ApplicationController
   # GET /qrs/1.json
   def show
     @qr = Qr.find(params[:id])
+    @qr_uri = "www.etiquetar.com.es/qrs/"+params[:id]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @qr }
@@ -41,10 +44,13 @@ class QrsController < ApplicationController
   def new
   @qr = Qr.new
   #We add a resource if it isn't one
-  @resource = @qr.resources.build if @qr.resources.empty?
+  #if @qr.resources.empty?
+   @resource = @qr.resources.build 
+   #@qr.resources.build
+  #end
 
-  p @qr
-  p @qr.resources
+  #p @qr
+  #p @qr.resources
   respond_to do |format|
    format.html
    format.json { render json: @qr }
@@ -66,13 +72,13 @@ class QrsController < ApplicationController
   # POST /qrs.json
   def create
     #@qr = Qr.new(params[:qr])
+   
     @qr = current_user.qrs.build(params[:qr])
+     #@resource = @qr.resources.build(params[:qr[:resources_atributes]])
 
-    #We create a default resource for the QR.
-    @resource = @qr.resources.build
-    
+    #We create a default resource for the QR.    
     respond_to do |format|
-      if @qr.save && @resource.save
+      if @qr.save 
         format.html { redirect_to @qr, notice: 'Qr was successfully created.' }
         format.json { render json: @qr, status: :created, location: @qr }
       else

@@ -1,36 +1,35 @@
 
-<h1>Your List of TAGS</h1>
+<h1> <%= current_user.name %>'s List of TAGS</h1>
 
-<table>
-  <tr>
-    <th>Default resource</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="well">
 
-
-<div class="span8">
   <!--We select all the qrs of the current_user-->
   <% @qrs=current_user.qrs(params[:id])%>
-
   <% @qrs.each do |qr| %>
 
-      <tr>
-        <td>TAG ID: <%= qr.id%></td>
-        <td><%= link_to 'Show', qr %></td>
-        <td><%= link_to 'Edit', edit_qr_path(qr) %></td>
-        <td><%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Download', url_for(:action => 'download', :id => qr.id) %> </td>
-      </tr>
+    <tr>
+      <h2><p><td>TAG ID: <%= qr.default_resource%></td></p><h2>
+      <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{qr.default_resource}&chs=120x120&choe=UTF-8", :size => "120x120")%>
 
+      <p>
+        <!--<%= link_to 'Show', @qr %> -->
+        <td><%= link_to 'Edit', edit_qr_path(qr) %></td>  |
+        <td><%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %></td> |
+        <td><%= link_to 'Download', url_for(:action => 'download', :id => qr.id) %> </td>
+      </p>
+    </tr>
+    
   <% end %>
 
-</table>
+</div class="well">
 
-<%= link_to 'New Qr', new_qr_path %>
+<div class="span8">
+
+  <%= link_to 'New Qr', new_qr_path %>
 
 </div>
 
 <br/>
+
+
 
