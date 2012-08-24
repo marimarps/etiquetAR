@@ -5,7 +5,7 @@
 <div class="well">
 <p><b>QR code <%=@qr.id%>:</b></p>
 
-<%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{@qr_uri}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+<%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{@qr_url}&chs=120x120&choe=UTF-8", :size => "120x120")%>
 
 <p>
 	<%= link_to 'Download', url_for(:action => 'download', :id => @qr.id) %> |
