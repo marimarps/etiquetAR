@@ -5,7 +5,7 @@ gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'rqrcode-rails3'
 gem 'mini_magick'
-
+gem "therubyracer", :group => :assets, :platform => :ruby
 
 require 'open-uri'
 gem 'rqrcode'
