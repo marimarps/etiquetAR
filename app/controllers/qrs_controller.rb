@@ -45,7 +45,7 @@ class QrsController < ApplicationController
   @qr = Qr.new
   #We add a resource if it isn't one
   #if @qr.resources.empty?
-   @resource = @qr.resources.build 
+  @resource = @qr.resources.build 
    #@qr.resources.build
   #end
 
@@ -71,10 +71,8 @@ class QrsController < ApplicationController
   # POST /qrs
   # POST /qrs.json
   def create
-    #@qr = Qr.new(params[:qr])
    
     @qr = current_user.qrs.build(params[:qr])
-     #@resource = @qr.resources.build(params[:qr[:resources_atributes]])
 
     #We create a default resource for the QR.    
     respond_to do |format|

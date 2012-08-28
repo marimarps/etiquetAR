@@ -7,11 +7,17 @@ class UsersController < ApplicationController
   	  @user = User.new
   end
 
+
+  # GET /users/1/edit
+  def edit
+    @user = User.find(params[:id])
+  end
+
+
   # PUT /users/1
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
@@ -30,7 +36,6 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to etiquetAR!"
       #FUNCIONA PERO REDIRECCIONA A USER/show: 
       redirect_to @user
-     # render 'static_pages/tagit'
     else
       render 'new'
     end
