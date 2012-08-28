@@ -21,17 +21,16 @@ EtiquetAR::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   #The use of via: :delete for the signout route, which indicated that it should be invoked using an HTTP DELETE request
   match '/signout', to: 'sessions#destroy', via: :delete
-
+  match '/profile', to: 'users#show'
 
   root to: 'static_pages#home'
   
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
-  match '/signup', to: 'users#new'
 
 
-  match '/tagit', to: 'static_pages#tagit'
+  match '/home_signed_in', to: 'static_pages#home_signed_in'
   match '/qrcode', to: 'static_pages#qrcode'
 
 

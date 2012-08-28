@@ -6,6 +6,9 @@ class StaticPagesController < ApplicationController
   def home
   end
 
+  def home_signed_in
+  end
+
   def help
   end
 
@@ -13,9 +16,6 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
-  end
-
-  def tagit
   end
 
 end

@@ -12,7 +12,9 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to etiquetAR!"
+      #FUNCIONA PERO REDIRECCIONA A USER/show: 
       redirect_to @user
+     # render 'static_pages/tagit'
     else
       render 'new'
     end

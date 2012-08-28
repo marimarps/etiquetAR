@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <% provide(:title, 'Tag It!') %>
-    <title>estiquetAR |  <%= yield(:title) %></title>
-  </head>
   <body>
-     <h1>Personalize, group into collections and print your TAGS</h1>
+  	<h1><%= current_user.name %>'s Home etiquetAR</h1>
+     <h2>Personalize, group into collections and print your TAGS</h2>
   </body>
 
-
- 
 
 <div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
    <ul class="nav nav-tabs" id="myTab">
