@@ -15,13 +15,25 @@ class QrsController < ApplicationController
     end
   end
 
+  def index_resources
+    @qr = Qr.find(params[:id])
+
+    @resources=Resource.find(params[:id])
+
+    respond_to do |format|
+      format.html {render 'index'}# index.html.erb
+      format.json { render json: @resources }
+    end
+  end
+
   # GET /qrs/1
   # GET /qrs/1.json
   def show
     @qr = Qr.find(params[:id])
     @qr_uri = "www.etiquetar.com.es/qrs/"+params[:id]
 
-    @resources=Resource.find(params[:id])
+   # @resources=Resource.find(params[:id])
+   @resources=Resource.where(:qr_id => @qr.id)
 
     respond_to do |format|
       format.html # show.html.erb

@@ -10,16 +10,7 @@ class ResourcesController < ApplicationController
     end
   end
 
-  def list_by_qr_id
-    @qr = Qr.find(params[:id])
-
-    @resources=Resource.find(params[:id])
-
-    respond_to do |format|
-      format.html {render 'index'}# index.html.erb
-      format.json { render json: @resources }
-    end
-
+ 
 
   end
 

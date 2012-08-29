@@ -14,7 +14,7 @@
       <p>
         <!--<%= link_to 'Show', @qr %> -->
         <td><%= link_to 'Edit', edit_qr_path(qr) %></td>  |
-        <td><%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %></td> |
+        <td><%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %></td> 
         <td><%= link_to 'Download', url_for(:action => 'download', :id => qr.id) %> </td>
       </p>
     </tr>

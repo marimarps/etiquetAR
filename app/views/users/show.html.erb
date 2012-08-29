@@ -1,4 +1,6 @@
 <% provide(:title, @user.name) %>
+
+
 <div class="column">
   <aside class="span2">
     <section>
@@ -7,34 +9,27 @@
        <%= @user.name %>
       </h1>
     </section>
-
   </aside>
-
 </div>
-  <div class="row">
 
- <h2>Personalize, group into collections and print your TAGS</h2>
+<h2>Personalize, group into collections and print your TAGS</h2>
 
 <div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
    <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><%= link_to "New tag", new_qr_path%><href="#NewTag" data-toggle="tab"></li>
-     <li class="active"><%= link_to "Your Tags", qrs_path%><href="#tab2" data-toggle="tab"></li>
-    <li><a href="#messages">Messages</a></li>
-    <li><a href="#settings">Settings</a></li>
-    </ul>
+    <li class="active"><%= link_to "New TAG", new_qr_path%><href="#NewTag" data-toggle="tab">
+    </li>
+     <li class="active"><%= link_to "Your TAGS", qrs_path%><href="#tab2" data-toggle="tab">
+     </li>
+    
+  </ul>
      
-    <div class="tab-content ">
-    <div class="tab-pane active" id="home">...</div>
-    <div class="tab-pane" id="profile">...</div>
-    <div class="tab-pane" id="messages">...</div>
-    <div class="tab-pane" id="settings">...</div>
+  <div class="tab-content ">
+    <div class="tab-pane active" id="NewTag"> 
+        <!--This makes the render of the form of the current_user. We need to render the new qr code page-->
+        <%= render 'form' %>
     </div>
-   
+    <div class="tab-pane" id="YourTags">
+      ...
+    </div>
   </div>
-    <script>
-	    $(function () {
-	    $('#myTab a:last').tab('NewTag');
-	    })
-    </script>
 
-</div>

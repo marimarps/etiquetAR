@@ -9,8 +9,14 @@
 
 <div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
    <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><%= link_to "New tag", new_qr_path%><href="#NewTag" data-toggle="tab"></li>
-     <li class="active"><%= link_to "Your Tags", qrs_path%><href="#tab2" data-toggle="tab"></li>
+    <li class="active"><%= link_to "New TAG", new_qr_path%><href="#NewTag" data-toggle="tab"></li>
+    
+
+    <p>
+      <%= render '/qrs/new' %>
+    </p>
+
+     <li class="active"><%= link_to "Your TAGS", qrs_path%><href="#tab2" data-toggle="tab"></li>
     <li><a href="#messages">Messages</a></li>
     <li><a href="#settings">Settings</a></li>
     </ul>

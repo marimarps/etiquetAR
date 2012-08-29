@@ -14,31 +14,4 @@
 	<%= link_to 'Edit', edit_qr_path(@qr) %>
 </p>
 
-
-<p>
-	<!--<%= link_to 'Edit resources', resource_path(@resources) %>-->
-
-<% @resources=Resource.where(:qr_id => @qr.id)%>
- 
- <% @resources.each do |r| %>
-
-  <p><b>This is the resource of the qr code: <%=r.name%></b></p>
-  <%= link_to 'Edit resource', resource_path(r) %>
-
- <% end %>
-
-
-</p>
-
-
-
-
-
-
-
-
-</div>
-
-<p>
-	<%= link_to 'Your TAGS', qrs_path %>
-</p>
+<%= render 'resources_index'%>

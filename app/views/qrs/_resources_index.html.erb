@@ -1,0 +1,31 @@
+
+<p>
+	<table>
+	  <tr>
+	    <th>QR Code ID</th>
+	    <th>Name</th>
+	    <th>Uri</th>
+	    <th>Image location</th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+
+	<% @resources.each do |resource| %>
+	  <tr>
+	    <td><%= resource.qr_id %></td>
+	    <td><%= resource.name %></td>
+	    <td><%= resource.uri %></td>
+	    <td><%= resource.image_location %></td>
+	    <td><%= link_to 'Show', resource %></td>
+	    <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
+	    <td><%= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  </tr>
+	<% end %>
+	</table>
+
+
+</p>
+
+</div>
+<%= link_to 'New Resource', new_resource_path %>

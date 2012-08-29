@@ -21,6 +21,9 @@ class CollectionsController < ApplicationController
     end
   end
 
+  
+
+
   # GET /collections/new
   # GET /collections/new.json
   def new
