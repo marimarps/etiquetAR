@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120828170448) do
+ActiveRecord::Schema.define(:version => 20120824152757) do
 
   create_table "collections", :force => true do |t|
     t.string   "name"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(:version => 20120828170448) do
     t.integer  "user_id"
     t.string   "collection_id"
     t.string   "qr_name"
-    t.string   "qr_url"
   end
 
   create_table "resources", :force => true do |t|
