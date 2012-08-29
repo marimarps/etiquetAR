@@ -3,9 +3,10 @@
 <p id="notice"><%= notice %></p>
 
 <div class="well">
-<p><b>QR code <%=@qr.id%>:</b></p>
+<p><b>This is a QR code <%=@qr.id%>: <%=@qr.qr_name%></b></p>
 
 <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{@qr_url}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+
 
 <p>
 	<%= link_to 'Download', url_for(:action => 'download', :id => @qr.id) %> |

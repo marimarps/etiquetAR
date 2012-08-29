@@ -20,6 +20,12 @@ class QrsController < ApplicationController
   def show
     @qr = Qr.find(params[:id])
     @qr_url = @qr.qr_url
+    #Trying to select the resources associated to a particular qr_id
+    @resource = @qr.resources 
+   # @resources= Resource.find_by_qr_id(:id)
+
+
+    #Listing qrs
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @qr }
@@ -42,24 +48,24 @@ class QrsController < ApplicationController
   # GET /qrs/new
   # GET /qrs/new.json
   def new
-  @qr = Qr.new
-  #We add a resource if it isn't one
-  #if @qr.resources.empty?
-  @resource = @qr.resources.build 
-   #@qr.resources.build
-  #end
+      @qr = Qr.new
+      #We add a resource if it isn't one
+      #if @qr.resources.empty?
+      @resource = @qr.resources.build 
+       #@qr.resources.build
+      #end
 
-  #p @qr
-  #p @qr.resources
-  respond_to do |format|
-   format.html
-   format.json { render json: @qr }
-  end
+      #p @qr
+      #p @qr.resources
+      respond_to do |format|
+       format.html
+       format.json { render json: @qr }
+      end
 
-  #respond_to do |format|
-    #  format.html # new.html.erb
-   # format.json { render json: @qr }
- # end
+      #respond_to do |format|
+        #  format.html # new.html.erb
+       # format.json { render json: @qr }
+     # end
 
   end
 

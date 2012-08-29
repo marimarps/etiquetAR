@@ -16,7 +16,10 @@
   <%= f.fields_for :qrs do |qr| %>
     <div class="well">
     <%= qr.blank? %>
-     <%= f.label :qr_name %> <%= qr.text_field :qr_name %>
+    <%= f.label :qr_name %><br />
+    <%= f.text_field :qr_name %>
+
+     <!--%= f.label :qr_name %> <%= qr.text_field :qr_name %>-->
     <!-- <%= f.label :default_resource %> <%= qr.text_field :default_resource %>-->
      <%= f.fields_for :resources do |builder| %>
     <%= render "resources_fields", :f => builder %>

@@ -6,13 +6,12 @@ class Qr < ActiveRecord::Base
   validates :user_id, presence: true
   belongs_to :collection
 
-  after_commit :create_qr_url
+  before_save :create_qr_url
 
 
 
 private
   def create_qr_url
       self.qr_url = "http://etiquetar.com.es"
-      self.save
   end
 end
