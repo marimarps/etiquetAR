@@ -12,7 +12,7 @@ class ResourcesController < ApplicationController
 
  
 
-  end
+
 
   # GET /resources/1
   # GET /resources/1.json
