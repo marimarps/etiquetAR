@@ -19,7 +19,7 @@ class QrsController < ApplicationController
   # GET /qrs/1.json
   def show
     @qr = Qr.find(params[:id])
-    @qr_url = @qr.qr_url
+    @qr_uri = "www.etiquetar.com.es/qrs/"+params[:id]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @qr }
