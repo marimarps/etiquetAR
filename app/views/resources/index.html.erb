@@ -2,9 +2,9 @@
 
 <table>
   <tr>
+    <th>QR Code ID</th>
     <th>Name</th>
     <th>Uri</th>
-    <th>Type</th>
     <th>Image location</th>
     <th></th>
     <th></th>
@@ -13,9 +13,9 @@
 
 <% @resources.each do |resource| %>
   <tr>
+    <td><%= resource.qr_id %></td>
     <td><%= resource.name %></td>
     <td><%= resource.uri %></td>
-    <td><%= resource.type %></td>
     <td><%= resource.image_location %></td>
     <td><%= link_to 'Show', resource %></td>
     <td><%= link_to 'Edit', edit_resource_path(resource) %></td>

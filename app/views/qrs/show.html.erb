@@ -4,6 +4,7 @@
 
 <div class="well">
 <p><b>This is a QR code <%=@qr.id%>: <%=@qr.qr_name%></b></p>
+</b></p>
 
 <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{@qr_uri}&chs=120x120&choe=UTF-8", :size => "120x120")%>
 
@@ -12,6 +13,29 @@
 	<%= link_to 'Download', url_for(:action => 'download', :id => @qr.id) %> |
 	<%= link_to 'Edit', edit_qr_path(@qr) %>
 </p>
+
+
+<p>
+	<!--<%= link_to 'Edit resources', resource_path(@resources) %>-->
+
+<% @resources=Resource.where(:qr_id => @qr.id)%>
+ 
+ <% @resources.each do |r| %>
+
+  <p><b>This is the resource of the qr code: <%=r.name%></b></p>
+  <%= link_to 'Edit resource', resource_path(r) %>
+
+ <% end %>
+
+
+</p>
+
+
+
+
+
+
+
 
 </div>
 

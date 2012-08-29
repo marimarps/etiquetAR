@@ -33,7 +33,8 @@ EtiquetAR::Application.routes.draw do
   match '/home_signed_in', to: 'static_pages#home_signed_in'
   match '/qrcode', to: 'static_pages#qrcode'
 
-
+  ####RESOURCES ROUTES
+  match '/resources/index', to: 'resources#list_by_qr_id'
 
 
   #root to: 'static_pages#home'

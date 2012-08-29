@@ -7,7 +7,7 @@ class QrsController < ApplicationController
   def index
     @qrs = Qr.all
     #In case we want to paginate the qr codes
-    #@qrs = Qr.paginate(page: params[:page])
+    @qrs = Qr.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,6 +20,9 @@ class QrsController < ApplicationController
   def show
     @qr = Qr.find(params[:id])
     @qr_uri = "www.etiquetar.com.es/qrs/"+params[:id]
+
+    @resources=Resource.find(params[:id])
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @qr }
@@ -66,6 +69,7 @@ class QrsController < ApplicationController
   # GET /qrs/1/edit
   def edit
     @qr = Qr.find(params[:id])
+
   end
 
   # POST /qrs
