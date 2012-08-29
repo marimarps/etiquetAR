@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(:version => 20120829110000) do
     t.integer  "user_id"
     t.string   "collection_id"
     t.string   "qr_name"
-    t.string   "qr_url"
   end
 
   create_table "resources", :force => true do |t|
