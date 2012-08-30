@@ -17,9 +17,9 @@
     <td><%= resource.name %></td>
     <td><%= resource.uri %></td>
     <td><%= resource.image_location %></td>
-    <td><%= link_to 'Show', resource %></td>
-    <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
-    <td><%= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', new_qr_resource_path(resource.qr, resource) %></td>
+    <td><%= link_to 'Edit', edit_qr_resource_path(resource.qr, resource) %></td>
+    <td><%= link_to 'Destroy', qr_resource_path(resource.qr, resource), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

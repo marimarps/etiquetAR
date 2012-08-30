@@ -1,9 +1,11 @@
 EtiquetAR::Application.routes.draw do
   resources :collections
 
-  resources :resources
-
-  resources :qrs
+  #Resources can only be added when they belong to a QR
+  resources :qrs do
+    resources :resources #, :only=>[:new, :create]
+  end
+#  resources :resources, :except=>[:new, :create]
 
   resources :users
   resources :rqr

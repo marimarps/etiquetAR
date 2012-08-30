@@ -1,8 +1,7 @@
 
 <p>
-	<table>
+	<table class="table table-hover">
 	  <tr>
-	    <th>QR Code ID</th>
 	    <th>Name</th>
 	    <th>Uri</th>
 	    <th>Image location</th>
@@ -12,14 +11,12 @@
 	  </tr>
 
 	<% @resources.each do |resource| %>
-	  <tr>
-	    <td><%= resource.qr_id %></td>
-	    <td><%= resource.name %></td>
+	  <tr>	    <td><%= resource.name %></td>
 	    <td><%= resource.uri %></td>
 	    <td><%= resource.image_location %></td>
-	    <td><%= link_to 'Show', resource %></td>
-	    <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
-	    <td><%= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	    <td><%= link_to 'Show', qr_resource_path(resource.qr, resource) %></td>
+	    <td><%= link_to 'Edit', edit_qr_resource_path(resource.qr, resource) %></td>
+	    <td><%= link_to 'Destroy', qr_resource_path(resource.qr, resource), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	  </tr>
 	<% end %>
 	</table>
@@ -27,5 +24,4 @@
 
 </p>
 
-</div>
-<%= link_to 'New Resource', new_resource_path %>
+<%= link_to 'New Resource', new_qr_resource_path(@qr) %>

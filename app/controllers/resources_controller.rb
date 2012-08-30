@@ -2,7 +2,7 @@ class ResourcesController < ApplicationController
   # GET /resources
   # GET /resources.json
   def index
-    @resources = Resource.all
+    @resources = current_user.qrs.find(params[:qr_id]).resources
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,7 +18,6 @@ class ResourcesController < ApplicationController
   # GET /resources/1.json
   def show
     @resource = Resource.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @resource }
@@ -28,7 +27,8 @@ class ResourcesController < ApplicationController
   # GET /resources/new
   # GET /resources/new.json
   def new
-    @resource = Resource.new
+    @qr = current_user.qrs.find(params[:qr_id])
+    @resource = @qr.resources.build
 
      respond_to do |format|
       format.html # new.html.erb
@@ -47,8 +47,8 @@ class ResourcesController < ApplicationController
     #@qr_user=current_user.qrs.build(params[:qr])
     #@qr=Qr.find(params[:id])
 
-    @qr=current_user.qrs.build(params[:qr])
-    @resource = Resource.new(params[:resource] [:@qr_user.id])
+    @qr=current_user.qrs.find(params[:qr_id])
+    @resource = @qr.resources.build(params[:resource])
 
     #example, what we have done in Qrs
     #@qr = Qr.new(params[:qr])
@@ -56,7 +56,7 @@ class ResourcesController < ApplicationController
 
     respond_to do |format|
       if @resource.save
-        format.html { redirect_to @resource, notice: 'Resource was successfully created.' }
+        format.html { redirect_to qr_resource_path(@qr, @resource), notice: 'Resource was successfully created.' }
         format.json { render json: @resource, status: :created, location: @resource }
       else
         format.html { render action: "new" }
@@ -88,7 +88,7 @@ class ResourcesController < ApplicationController
     @resource.destroy
 
     respond_to do |format|
-      format.html { redirect_to resources_url }
+      format.html { redirect_to qr_resources_path(@resource.qr) }
       format.json { head :no_content }
     end
   end
