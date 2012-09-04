@@ -38,6 +38,7 @@ class ResourcesController < ApplicationController
 
   # GET /resources/1/edit
   def edit
+    @qr = current_user.qrs.find(params[:qr_id])
     @resource = Resource.find(params[:id])
   end
 

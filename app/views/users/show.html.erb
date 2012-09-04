@@ -1,57 +1,63 @@
 <% provide(:title, @user.name) %>
+<body>
+  <div class= "span12">
+    <div class= "span1">
+            <%= gravatar_for @user %>
+            <centering>
+              <%= @user.name %>
+            </centering>
+    </div>
+    <div class= "span8">
+      <h1>Personalize, group into collections and print your TAGS</h1>
+    </div>
 
 
-<div class="column">
-  <aside class="span2">
-    <section>
-      <h1> 
-        <%= gravatar_for @user %>
-       <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
-</div>
 
-<h2>Personalize, group into collections and print your TAGS</h2>
+  <!--Listing the QRS that belong to current_user-->
 
-<!--Listing the QRS that belong to current_user-->
+    <% @qrs.each do |qr| %>
 
-  <% @qrs.each do |qr| %>
+    <div class ="qrresourcesbox span12"> <!--Engloba QR divs + Resources div-->
 
-    <tr>
-      <h2><p><td>TAG ID: <%= qr.default_resource%></td></p><h2>
-      <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{qr.default_resource}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+        <div class = "qrbox span6">
+              <div class = "span2">
+                 <h3>TAG Name: <%= qr.qr_name %><h3>
+                  <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{qr.default_resource}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+              </div>
+              <div class = "span4">
+                   <%= link_to 'Edit', edit_qr_path(qr) %>  |
+                    <%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+                  <%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %>
+              </div>
+        </div>
+      
 
-      <p>
-        <!--<%= link_to 'Show', @qr %> -->
-        <td><%= link_to 'Edit', edit_qr_path(qr) %></td>  |
-        <td><%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %></td> 
-        <td><%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %> </td>
-      </p>_
-    </tr>
-
-      <table>
-     <tr>
-      <th>Resource Name</th>
-      <th>Uri</th>
-      <th>Image location</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    <% qr.resources.each do |resource| %>
-    <tr>
-      <td><%= resource.name %></td>
-      <td><%= resource.uri %></td>
-      <td><%= resource.image_location %></td>
-      <td><%= link_to 'Show', new_qr_resource_path(resource.qr, resource) %></td>
-      <td><%= link_to 'Edit', edit_qr_resource_path(resource.qr, resource) %></td>
-      <td><%= link_to 'Destroy', qr_resource_path(resource.qr, resource), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
+        <div class = "resourcesbox span4">
+            <table class="table table-condensed">
+               <tr>
+                <th>Resource Name</th>
+                <th>Uri</th>
+                <th>Mange Resources</th>
+              </tr>
+              <% qr.resources.each do |resource| %>
+              <tr>
+                <td><%= resource.name %></td>
+                <td><%= resource.uri %></td>
+                <td>
+                  <%= link_to 'Show', qr_resource_path(resource.qr, resource) %>
+                  <%= link_to 'Edit', edit_qr_resource_path(resource.qr_id, resource) %>
+                  <%= link_to 'Destroy', qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' } %>
+                </td>
+              </tr>
+          
+              <% end %>
+            </table>
+        </div>
+  </div>
     <% end %>
-    </table>
-
-  <% end %>
-
-
-<%= link_to "New TAG", new_qr_path%><href="#NewTag" data-toggle="tab">
+  <br><br>
+    <div class="span10">
+      <%= link_to "New TAG", new_qr_path%><href="#NewTag" data-toggle="tab">
+    </div>
+  </br> </br> 
+</body>

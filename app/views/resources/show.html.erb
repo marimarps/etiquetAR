@@ -10,11 +10,5 @@
   <%= @resource.uri %>
 </p>
 
-<p>
-  <b>Image location:</b>
-  <%= @resource.image_location %>
-</p>
-
-
 <%= link_to 'Edit', edit_qr_resource_path(@resource) %> |
-<%= link_to 'Back', qr_resources_path %>
+<%= link_to 'Back', current_user %>
