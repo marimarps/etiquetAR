@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    @qrs = current_user.qrs
   end
 
   def new
@@ -43,5 +44,10 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+  def download_qr
+   
+  end
+
 
 end
