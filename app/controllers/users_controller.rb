@@ -46,7 +46,11 @@ class UsersController < ApplicationController
   end
 
   def download_qr
-   
+
+  end
+
+  def qr_resource
+
   end
 
 

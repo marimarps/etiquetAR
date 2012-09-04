@@ -14,6 +14,8 @@
 
 <h2>Personalize, group into collections and print your TAGS</h2>
 
+<!--Listing the QRS that belong to current_user-->
+
   <% @qrs.each do |qr| %>
 
     <tr>
@@ -27,7 +29,28 @@
         <td><%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %> </td>
       </p>_
     </tr>
-    
+
+      <table>
+     <tr>
+      <th>Resource Name</th>
+      <th>Uri</th>
+      <th>Image location</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% qr.resources.each do |resource| %>
+    <tr>
+      <td><%= resource.name %></td>
+      <td><%= resource.uri %></td>
+      <td><%= resource.image_location %></td>
+      <td><%= link_to 'Show', new_qr_resource_path(resource.qr, resource) %></td>
+      <td><%= link_to 'Edit', edit_qr_resource_path(resource.qr, resource) %></td>
+      <td><%= link_to 'Destroy', qr_resource_path(resource.qr, resource), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+    </table>
+
   <% end %>
 
 

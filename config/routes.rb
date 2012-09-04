@@ -24,6 +24,8 @@ EtiquetAR::Application.routes.draw do
   #The use of via: :delete for the signout route, which indicated that it should be invoked using an HTTP DELETE request
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/qrs/:id/download', to: 'users#download_qr'
+#Adding this to list the resources per each qr
+  match '/qrs/:id/index_resources', to: 'users#qr_resources'
 
   root to: 'static_pages#home'
   
