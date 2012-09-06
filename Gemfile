@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
-gem 'bootstrap-sass', '2.0.0'
+gem 'anjlab-bootstrap-rails', '>= 2.1', :require => 'bootstrap-rails'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'rqrcode-rails3'
 gem 'mini_magick'
