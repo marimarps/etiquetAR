@@ -1,4 +1,5 @@
 class Qr < ActiveRecord::Base
+
   attr_accessible :default_resource, :resources, :resources_attributes, :qr_name
   has_many :resources, dependent: :destroy
   accepts_nested_attributes_for :resources
@@ -11,4 +12,5 @@ class Qr < ActiveRecord::Base
   	#we return the URI for the first resource, so everything works as expected
   	return resources.first.uri
   end
+
 end

@@ -69,11 +69,12 @@ class ResourcesController < ApplicationController
   # PUT /resources/1
   # PUT /resources/1.json
   def update
+    @qr=current_user.qrs.find(params[:qr_id])
     @resource = Resource.find(params[:id])
 
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
-        format.html { redirect_to @resource, notice: 'Resource was successfully updated.' }
+        format.html { redirect_to  current_user, notice: 'Resource was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
