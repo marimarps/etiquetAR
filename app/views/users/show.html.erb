@@ -1,6 +1,5 @@
 <% provide(:title, @user.name) %>
 <body>
-  <div class= "span12">
     <div class= "span1">
             <%= gravatar_for @user %>
             <centering>
@@ -26,7 +25,7 @@
               </div>
               <div class = "span4">
                    <%= link_to 'Edit', edit_qr_path(qr) %>  |
-                    <%= link_to 'Destroy', qr, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+                    <%= link_to 'Remove', qr, method: :delete, data: { confirm: 'Are you sure?' } %> | 
                   <%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %>
               </div>
         </div>
@@ -36,17 +35,21 @@
             <table class="table table-condensed">
                <tr>
                 <th>Resource Name</th>
-                <th>Uri</th>
-                <th>Mange Resources</th>
+                <th>URL</th>
+                <th>Manage</th>
               </tr>
               <% qr.resources.each do |resource| %>
               <tr>
                 <td><%= resource.name %></td>
                 <td><%= resource.uri %></td>
                 <td>
-                  <%= link_to 'Show', qr_resource_path(resource.qr, resource) %>
-                  <%= link_to 'Edit', edit_qr_resource_path(resource.qr_id, resource) %>
-                  <%= link_to 'Destroy', qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <%# link_to 'Show', qr_resource_path(resource.qr, resource) %>
+                  <%= link_to  edit_qr_resource_path(resource.qr_id, resource) do %>
+                    <i class="icon-edit"></i>
+                    <% end %>
+                  <%= link_to qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="icon-remove"></i>
+                  <% end %>
                 </td>
               </tr>
           

@@ -1,14 +1,14 @@
-<header class="navbar navbar-fixed-top">
+<header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "etiquetAR", root_path, id: "logo" %>
+      <%= link_to "etiquetAR", root_path, class: "brand blogo" %>
       <nav>
         <ul class="nav pull-right">
+          <% if signed_in? %>
+            <%= render 'layouts/header_signed_in' %>    
+          <% else %>
           <li><%= link_to "Home",    root_path %></li>
           <li><%= link_to "Help",    help_path %></li>
-          <% if signed_in? %>
-           <%= render 'layouts/header_signed_in' %>    
-          <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
         </ul>
