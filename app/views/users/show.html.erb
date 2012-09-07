@@ -11,7 +11,20 @@
     </div>
 
 
-
+         <table class="table table-condensed">
+               <tr>
+                <th>Profile name</th>
+                <th>Manage</th>
+              </tr>
+              <% @profiles.each do |profile| %>
+              <tr>
+                <td><%= profile.name %></td>
+                <td>
+                </td>
+              </tr>
+          
+              <% end %>
+            </table>
   <!--Listing the QRS that belong to current_user-->
 
     <% @qrs.each do |qr| %>

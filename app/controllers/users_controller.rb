@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @qrs = current_user.qrs
+    @profiles = current_user.profiles
   end
 
   def new
