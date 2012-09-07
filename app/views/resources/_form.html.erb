@@ -16,6 +16,12 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+
+  <div class="field">
+    <%= f.label :profile %><br />
+    <%= f.collection_select :profile_id, current_user.profiles, :id, :name, :prompt => true %>
+  </div>
+
   <div class="field">
     <%= f.label :uri %><br />
     <%= f.text_field :uri %>
