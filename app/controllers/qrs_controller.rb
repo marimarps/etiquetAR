@@ -42,7 +42,15 @@ class QrsController < ApplicationController
 
   def go
     @qr = Qr.find(params[:id])
-    redirect_to @qr.default_resource
+    if params[:p] != nil
+      session[:profile] = params[:p]
+    end
+
+    if session[:profile] == nil 
+      render
+    else
+      redirect_to @qr.resources.where({:profile_id => session[:profile]}).first.uri
+    end
   end
 
   def download
