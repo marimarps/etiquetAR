@@ -92,10 +92,10 @@ class QrsController < ApplicationController
     #We create a default resource for the QR.    
     respond_to do |format|
       if @qr.save 
-        format.html { redirect_to @qr, notice: 'Qr was successfully created.' }
+        format.html { redirect_to current_user, notice: 'Qr was successfully created.' }
         format.json { render json: @qr, status: :created, location: @qr }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to current_user, notice: 'Oooops! Something went wrong while creating. Try again.'  }
         format.json { render json: @qr.errors, status: :unprocessable_entity }
       end
     end
@@ -108,13 +108,14 @@ class QrsController < ApplicationController
 
     respond_to do |format|
       if @qr.update_attributes(params[:qr])
-        format.html { redirect_to @qr, notice: 'Qr was successfully updated.' }
+        format.html { redirect_to current_user, notice: 'Qr was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { redirect_to current_user, notice: 'Oooops! Something went wrong while updating. Try again.'  }
         format.json { render json: @qr.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # DELETE /qrs/1
@@ -124,8 +125,8 @@ class QrsController < ApplicationController
     @qr.destroy
 
     respond_to do |format|
-      format.html { redirect_to qrs_url }
-      format.json { head :no_content }
+        format.html { redirect_to current_user, notice: 'Qr was successfully removed.' }
+        format.json { head :no_content }
     end
   end
 

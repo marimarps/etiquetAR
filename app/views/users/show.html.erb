@@ -13,51 +13,58 @@
 
 
   <!--Listing the QRS that belong to current_user-->
+    <% if @qrs.any? %>
+        <% @qrs.each do |qr| %>
 
-    <% @qrs.each do |qr| %>
+        <div class ="qrresourcesbox span12"> <!--Engloba QR divs + Resources div-->
 
-    <div class ="qrresourcesbox span12"> <!--Engloba QR divs + Resources div-->
-
-        <div class = "qrbox span6">
-              <div class = "span2">
-                 <h3>TAG Name: <%= qr.qr_name %><h3>
-                  <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%>
-              </div>
-              <div class = "span4">
-                   <%= link_to 'Edit', edit_qr_path(qr) %>  |
-                    <%= link_to 'Remove', qr, method: :delete, data: { confirm: 'Are you sure?' } %> | 
-                  <%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %>
-              </div>
-        </div>
-      
-
-        <div class = "resourcesbox span4">
-            <table class="table table-condensed">
-               <tr>
-                <th>Resource Name</th>
-                <th>URL</th>
-                <th>Manage</th>
-              </tr>
-              <% qr.resources.each do |resource| %>
-              <tr>
-                <td><%= resource.name %></td>
-                <td><%= resource.uri %></td>
-                <td>
-                  <%# link_to 'Show', qr_resource_path(resource.qr, resource) %>
-                  <%= link_to edit_qr_resource_path(resource.qr_id, resource), class: "btn" do %>
-                    <i class="icon-edit"></i>
-                    <% end %>
-                  <%= link_to qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" do %>
-                    <i class="icon-remove"></i>
-                  <% end %>
-                </td>
-              </tr>
+            <div class = "qrbox span6">
+                  <div class = "span2">
+                     <h3>TAG Name: <%= qr.qr_name %><h3>
+                      <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+                  </div>
+                  <div class = "span4">
+                       <%= link_to 'Edit', edit_qr_path(qr) %>  |
+                        <%= link_to 'Remove', qr, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+                      <%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %>
+                  </div>
+            </div>
           
-              <% end %>
-            </table>
-        </div>
-  </div>
-    <% end %>
+
+            <div class = "resourcesbox span4">
+                <table class="table table-condensed">
+                   <tr>
+                    <th>Resource Name</th>
+                    <th>URL</th>
+                    <th>Manage</th>
+                  </tr>
+                  <% qr.resources.each do |resource| %>
+                  <tr>
+                    <td><%= resource.name %></td>
+                    <td><%= resource.uri %></td>
+                    <td>
+                      <%# link_to 'Show', qr_resource_path(resource.qr, resource) %>
+                      <%= link_to edit_qr_resource_path(resource.qr_id, resource), class: "btn" do %>
+                        <i class="icon-edit"></i>
+                        <% end %>
+                      <%= link_to qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" do %>
+                        <i class="icon-remove"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+              
+                  <% end %>
+                </table>
+            </div>
+      </div>
+        <% end %>
+  <% else %>
+
+    <div class= "span8 offset1" align="center">
+        <br/><br/>
+        <h2>You don't have any TAG yet!!! Click on New Tag to start creating your TAGS. </h2>
+    </div>
+  <% end %>
   <br><br>
     <div class="span10">
       <%= link_to "New TAG", new_qr_path%><href="#NewTag" data-toggle="tab">

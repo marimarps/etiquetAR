@@ -1,17 +1,12 @@
 
 <div class="well">
-<p>
+  <h2> Resource </h2>
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label 'Resource Name' %><br />
+    <%= f.text_field :name, placeholder:'The name of your resource' %>
   </div>
   <div class="field">
-    <%= f.label :uri %><br />
-    <%= f.text_field :uri %>
+    <%= f.label 'Resource Content' %><br />
+    <%= f.text_field :uri, placeholder:'Insert an URL (e.g. www.google.com)' %>
   </div>
-  <div class="field">
-    <%= f.label :image_location %><br />
-    <%= f.text_field :image_location %>
-  </div>
-</p>
 </div>

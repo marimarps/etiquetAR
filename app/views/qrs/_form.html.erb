@@ -1,4 +1,7 @@
-<%= form_for(@qr) do |f| %>
+
+
+<div class="span8 offset2">
+<%= form_for(@qr,:html => { :class => 'form' }) do |f| %>
   <% if @qr.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@qr.errors.count, "error") %> prohibited this qr from being saved:</h2>
@@ -13,23 +16,28 @@
 
 <!--REGARDING QRS -->
 
+      <%= f.label 'Tag name'%>
+      <%= f.text_field :qr_name, placeholder:'The name of your TAG' %>
+
+
   <%= f.fields_for :qrs do |qr| %>
-    <div class="well">
-      <%= f.label :qr_name %><br />
-      <%= f.text_field :qr_name %>
+
 
        <!--%= f.label :qr_name %> <%= qr.text_field :qr_name %>-->
       <!-- <%= f.label :default_resource %> <%= qr.text_field :default_resource %>-->
+
+  
        <%= f.fields_for :resources do |builder| %>
+
 
       <%= render "resources_fields", :f => builder %>
       <% end %>
-   </div>
   <% end %>
 
 
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit"%>
   </div>
 <% end %>
+</div>

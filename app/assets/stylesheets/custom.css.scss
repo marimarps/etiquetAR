@@ -5,8 +5,8 @@
 $grayMediumLight: #eaeaea;
 
 @mixin box_sizing {
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -92,18 +92,16 @@ p {
 /* footer */
 
 footer {
-  /*margin-top:500px;*/
   padding-top: 5px;
-  border-top: 1px solid $grayMediumLight;
   color: $grayLight;
   a {
     color: $gray;
-    &:hover { 
+    &:hover {
       color: $grayDarker;
     }
-  }  
-  small { 
-    float: left; 
+  }
+  small {
+    float: left;
   }
   ul {
     float: right;
@@ -194,14 +192,14 @@ div.qrbox{
   width:210px;
   padding:10px;
   border:1px solid $grayLighter;
-  margin:10px; 
+  margin:10px;
   @include box_sizing;
 }
 
 div.resourcesbox{
   width:600px;
   padding:10px;
-  margin:10px; 
+  margin:10px;
   @include box_sizing;
 }
 
@@ -210,7 +208,7 @@ div.qrresourcesbox{
   padding:10px;
   border: 2px solid $grayLighter;
   border-style: dotted solid;
-  margin:10px; 
+  margin:10px;
   @include box_sizing;
 }
 
