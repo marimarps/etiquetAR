@@ -1,0 +1,5 @@
+Què estàs estudiant?
+<ul><% @qr.user.profiles.each do |prof| %>
+	<li><%= link_to prof.name, :controller => :qrs, :action => :go, :p => prof.id %></li>
+<% end %>
+</ul>

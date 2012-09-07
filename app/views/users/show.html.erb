@@ -11,6 +11,42 @@
     </div>
 
 
+         <table class="table table-condensed">
+               <tr>
+                <th>Profile name</th>
+                <th>Manage</th>
+              </tr>
+              <% @profiles.each do |profile| %>
+              <tr>
+                <td><%= profile.name %></td>
+                <td>
+                    <%= link_to edit_profile_path(profile), class: "btn" do %>
+                    <i class="icon-edit"></i>
+                    <% end %>
+                  <%= link_to profile_path(profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" do %>
+                    <i class="icon-remove"></i>
+                  <% end %>
+                </td>
+              </tr>
+          
+              <% end %>
+            </table>
+               <%= form_for(@new_profile, {:html => {:class => "form-inline"}}) do |f| %>
+
+<%= f.text_field :name %>
+<%= f.submit(:class => "btn") %>
+                <% end %>           
+  <% if @new_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@new_profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @new_profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <!--Listing the QRS that belong to current_user-->
     <% if @qrs.any? %>
@@ -33,16 +69,20 @@
 
             <div class = "resourcesbox span4">
 
+
                 <table class="table table-condensed">
                    <tr>
                     <th>Resource Name</th>
                     <th>URL</th>
+                     <th>Profile</th>
                     <th>Manage</th>
                   </tr>
                   <% qr.resources.each do |resource| %>
                   <tr>
                     <td><%= resource.name %></td>
                     <td><%= resource.uri %></td>
+                    <td><%= resource.profile != nil ? resource.profile.name : "(none)" %></td>
+
                     <td>
                       <%# link_to 'Show', qr_resource_path(resource.qr, resource) %>
                       <%= link_to edit_qr_resource_path(resource.qr_id, resource), class: "btn" do %>

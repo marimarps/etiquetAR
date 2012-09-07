@@ -8,6 +8,7 @@ EtiquetAR::Application.routes.draw do
 #  resources :resources, :except=>[:new, :create]
 
   resources :users
+  resources :profiles
   resources :rqr
 
   resources :sessions, only: [:new, :create, :destroy]

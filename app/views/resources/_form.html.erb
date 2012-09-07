@@ -12,18 +12,26 @@
   <% end %>
 
 
+
     <div class="control-group">
       <%= f.label 'Resource Name:', class:"control-label" %><br />
         <div class="controls">
           <%= f.text_field :name, placeholder:'The name of your resource'%>
         </div>
     </div>
+
+
     <div class="control-group ">
       <%= f.label 'Resource Content:', class:"control-label" %><br />
       <div class="controls">
         <%= f.text_field :uri, placeholder:'Insert an URL (e.g. www.google.com)' %>
       </div>
     </div>
+
+      <div class="field">
+    <%= f.label :profile %><br />
+    <%= f.collection_select :profile_id, current_user.profiles, :id, :name, :prompt => true %>
+  </div>
 
     <div class="actions">
       <%= f.submit "Submit", class:'btn'%>

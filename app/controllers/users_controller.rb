@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @qrs = current_user.qrs
+    @profiles = current_user.profiles
+
+    @new_profile = Profile.new
+    @new_profile.user = current_user
   end
 
   def new
