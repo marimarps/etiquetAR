@@ -29,9 +29,10 @@
                       <%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %>
                   </div>
             </div>
-          
+        
 
             <div class = "resourcesbox span4">
+
                 <table class="table table-condensed">
                    <tr>
                     <th>Resource Name</th>
@@ -50,24 +51,51 @@
                       <%= link_to qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" do %>
                         <i class="icon-remove"></i>
                       <% end %>
+
                     </td>
                   </tr>
-              
+
+                  
                   <% end %>
+
+                  <tr>
+                    <td><b>Add new resource!</b></td>
+                    <td></td>
+                    <td>
+                      <%= link_to new_qr_resource_path(qr.id), class: "btn" do %>
+                      <i class="icon-plus-sign" align="right"></i>
+                      <% end %>
+                    </td>
+    
+                  </tr>
                 </table>
             </div>
-      </div>
+           </div>
         <% end %>
+        
+            <div class = "qrbox span6 offset4" align="center">
+                  <div class = "span2">
+                     <h3>Add a new TAG<h3>
+                      <%= link_to new_qr_path, class: "btn" do %>
+                      <i class="icon-plus-sign" align="right", size= "120px"></i>
+                      <% end %>
+                  </div>
+            </div>
+         
   <% else %>
+
 
     <div class= "span8 offset1" align="center">
         <br/><br/>
         <h2>You don't have any TAG yet!!! Click on New Tag to start creating your TAGS. </h2>
     </div>
+    <div class = "qrbox span6 offset4" align="center">
+                  <div class = "span2">
+                     <h3>Add a new TAG<h3>
+                      <%= link_to new_qr_path, class: "btn" do %>
+                      <i class="icon-plus-sign" align="right", size= "120px"></i>
+                      <% end %>
+                  </div>
+            </div>
   <% end %>
-  <br><br>
-    <div class="span10">
-      <%= link_to "New TAG", new_qr_path%><href="#NewTag" data-toggle="tab">
-    </div>
-  </br> </br> 
 </body>

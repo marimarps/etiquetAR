@@ -57,10 +57,10 @@ class ResourcesController < ApplicationController
 
     respond_to do |format|
       if @resource.save
-        format.html { redirect_to qr_resource_path(@qr, @resource), notice: 'Resource was successfully created.' }
+        format.html { redirect_to  current_user, notice: 'Resource was successfully created.' }
         format.json { render json: @resource, status: :created, location: @resource }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to  current_user, notice: 'Oooops! Something happened. Resource not saved.' }
         format.json { render json: @resource.errors, status: :unprocessable_entity }
       end
     end
