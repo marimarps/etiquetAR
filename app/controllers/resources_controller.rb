@@ -18,10 +18,8 @@ class ResourcesController < ApplicationController
   # GET /resources/1.json
   def show
     @resource = Resource.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @resource }
-    end
+    redirect_to @resource.uri
+
   end
 
   # GET /resources/new
