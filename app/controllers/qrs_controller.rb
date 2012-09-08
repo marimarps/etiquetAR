@@ -49,8 +49,7 @@ class QrsController < ApplicationController
     if session[:profile] == nil 
       render
     else
-      @destination = @qr.resources.where({:profile_id => session[:profile]}).first.uri
-      render @destination
+      redirect_to @qr.resources.first.uri
     end
   end
 
