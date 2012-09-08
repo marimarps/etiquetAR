@@ -27,10 +27,11 @@
         <%= f.text_field :uri, placeholder:'Insert an URL (e.g. www.google.com)' %>
       </div>
     </div>
-
       <div class="field">
     <%= f.label :profile %><br />
-    <%= f.collection_select :profile_id, current_user.profiles, :id, :name, :prompt => true %>
+    <%= f.collection_select :profile_id, current_user.profiles, :id, :name, :include_blank => 'Please select a profile', :prompt => true %>
+
+
   </div>
 
     <div class="actions">
