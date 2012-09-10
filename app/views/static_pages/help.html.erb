@@ -1,13 +1,81 @@
 <% provide(:title, 'Help') %>
 <!DOCTYPE html>
+<% provide(:title, 'About') %>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>estiquetAR | <%= yield(:title) %></title>
-  </head>
+<header>
+	<div class="span12">
+		<h1>Help etiquetAR</h1>
+	</div>
+</header>
+
+  
   <body>
-    <h1>The application help</h1>
-    <p>
-      This is the home page for etiquetAR.
-    </p>
+  	<div class="span11">
+	  	<div class="span11 well" align="center">             
+					<%= link_to image_tag("LogoSubscribe.png", :size => "80x70")%> <br>
+					<h2>Create, personalize and print your tags in three simple steps.</h2>
+	   </div>
+
+	   <row></row>
+			<div class="span12">
+				<div class="span3 well">
+					<h1>1. Create</h1>
+					<p>
+	     	 			<%= link_to image_tag("AddNewTag.png", :size => "200x200", alt: "etiquetAR")%>
+	     	 		</p><br>
+	     	 		<p> 
+					Click on New TAG and fill in the form to create your tag:
+					<ul>
+						    <li>Choose a name for your tag.</li>
+						    <li>Choose a name for the resource that will be hidden in this tag</li>
+						    <li>Select a profile to define the user that should see this resource (K12 or High School).</li>
+						    <li>Add an URL with the content you want to show. (ej. "http://www.wikipedia.com")</li>
+					 </ul>
+					</p>
+	  			</div>
+
+	  			 <div class="span3 well">
+	  			 	<h1>2. Add resources </h1>  	 		
+	     	 		<p> 
+	     	 		You can add as many resources as you wish for each QR. 
+					<ul>
+						    <li><%= link_to image_tag("AddResource.png", :size => "35x30", alt: "etiquetAR")%> <br>Add a new resource and fill in the form as in the previous step.</li>
+						    <li><%= link_to image_tag("EditResource.png", :size => "35x30", alt: "etiquetAR")%> <br>Add a new resource and fill in the form as in the previous step.</li>
+						    <li><%= link_to image_tag("DeleteResource.png", :size => "35x30", alt: "etiquetAR")%><br>Add an URL with the content you want to show. (ej. "http://www.wikipedia.com") </li>
+					 </ul>
+					</p>
+					NOTICE that the user will access to the different resources through the profile you define.
+	  			 </div>
+
+	  			<div class="span3 well">
+	  			 	<h1>3. Print tags </h1>
+	  			 	<p>
+	     	 			<%= link_to image_tag("QRTagOptions.png", :size => "200x200", alt: "etiquetAR")%>
+	     	 			
+	     	 		</p><br>   	 		
+	     	 		<p> 
+	     	 		Click on download and save the generated image. Attach your tags where you wish and you are done!
+					</p>
+					<p>
+					You can also:
+					<ul>
+						    <li>Editing an existing resource.</li>
+						    <li>Removing an existing resource.</li>
+					 </ul>
+					</p>
+	  			 </div>
+			</div>
+
+			<div class="span11 well" align="center">    
+			<h1>Imagine your Interactive Learning Scenario </h2>         
+				<%= link_to image_tag("LogoSubscribe.png", :size => "80x70")%> <br>
+				<ul>
+					<li>Editing an existing resource.</li>
+					<li>Removing an existing resource.</li>
+				</ul>
+				
+	   		</div>
   </body>
+
 </html>
