@@ -1,13 +1,85 @@
 <% provide(:title, 'About') %>
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>estiquetAR | <%= yield(:title) %></title>
-  </head>
+<header>
+	<div class="span12">
+		<h1>About etiquetAR</h1>
+	</div>
+</header>
+
+  
   <body>
-    <h1>The about of etiquetAR</h1>
-    <p>
-      This is the about page for etiquetAR.
-    </p>
+  	<div class="span12">
+	  	<div class="span11 well" align="center">             
+					<%= link_to image_tag("LogoSubscribe.png", :size => "80x70")%> is a <strong>web-mobile-based </strong>tool for <strong>creating</strong> and <strong>sharing interactive tag-based learning experiences</strong>. 
+	   </div>
+
+	   <row></row>
+			<div class="span12">
+				<div class="span5 well">
+					<h1>etiquetAR web</h1>
+	     	 		<%= link_to image_tag("SchemaInit-CompletoPos1.png", :size => "1000x1000", alt: "etiquetAR")%>
+					The EtiquetAR web application enables creating, collecting, printing and sharing personalized interactive QR. Users can associate one or more multimedia web resources to each of the QR tags. Once created, the Tags can be shared and updated by any other user of the community and grouped into collections for creating structured information paths. The QR codes can be tagged by the users to customize and glocalize objects of the urban spaces or of the cultural institutions.
+	  			 </div>
+
+	  			 <div class="span5 well">
+	  			 	<h1>etiquetAR mobile</h1>
+	  			 	 <div class="span5 ">
+		     	 		<%= link_to image_tag("MockupEtiquetAR-Mob_LogIn.png", :size => "80x80", alt: "etiquetAR")%>
+		     	 		<%= link_to image_tag("MockupEtiquetAR-Mob_TagReader.png", :size => "80x80", alt: "etiquetAR")%>
+		     	 		<%= link_to image_tag("MockupEtiquetAR-Mob_ProfileSelector.png", :size => "80x80", alt: "etiquetAR")%>
+		     	 		<%= link_to image_tag("MockupEtiquetAR-Mob_ResourceVisualization.png", :size => "80x80", alt: "etiquetAR")%>
+		     	 	</div>
+	     	 		<br>
+					You don't need a special app for interacting with the tags. You can use any QR reader!. You will be redirected to a page where you could select the information you want to see depending on your interestsinterests/profile.aTags behave as "sensors” that benefit from users' interactions to capture their intentions, worries and interests about the learning context.
+	  			 </div>
+
+	  			 <div class="span5 well">
+	  			 	<h2>Versions</h2>
+
+	  			 	<table class="table table-condensed">
+						<tr>
+                			<th>Version</th>
+                			<th>Date</th>
+               				<th>Functionalities</th>
+              			</tr>
+              			<tr>
+                			<td>Beta 1.0</td>
+                			<td>12/09/2012</td>
+               				<td>
+               					+Create tags
+               					+Personalize tags
+               					+Associate profiles to resources
+               					+Read tags content depending on profile<br>
+               				</td>
+              			</tr>
+              		</table>
+
+	  			</div>
+
+		  		<div class="span5 well" align="center">
+		  			 	<h2>Aknowledgements</h2>
+						<p>
+						etiquetAR has been developed as part of the "Espacios Educativos Especulares" (<a href="http://www.slideshare.net/yandim/eee-project-summary">EEE project</a>), (TIN2011-28308-C03-03). 
+						</p> <br>
+						<p>
+						etiquetAR has been developed by the members of the <a href="https://gradient.it.uc3m.es/xowiki/main_page">Gradient Lab</a> of the <a href="http://www.uc3m.es/portal/page/portal/inicio">Universidad Carlos III de Madrid</a>. 
+						</p>
+						
+
+		  		</div>
+			</div>
+
+			
+
+
+
+					
+
+				</p>
+			 <div class="span12">	
+		</p>
+	</div>
   </body>
+
 </html>
