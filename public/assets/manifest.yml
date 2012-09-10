@@ -1,7 +1,20 @@
 ---
+AddNewTag.png: AddNewTag-ef9de2b6758d0605d1c4d1e3804c49f0.png
+AddResource.png: AddResource-6eee91d51413a9b967067d6f13c3d9e0.png
+DeleteResource.png: DeleteResource-6aa0520b74c2c0eb80ccfb00b0783cd4.png
+EditResource.png: EditResource-6fb634ae35b9b288cf3b9dd9fa89e2f4.png
 LogoSubscribe.png: LogoSubscribe-b0ded34e159ff1aa5b3b271c4b371222.png
+MockupEtiquetAR-Mob_Init.png: MockupEtiquetAR-Mob_Init-e8b25445be3bdc94aa0cac413491344e.png
+MockupEtiquetAR-Mob_LogIn.png: MockupEtiquetAR-Mob_LogIn-d2e265252fce6592680aa2fa312260bb.png
+MockupEtiquetAR-Mob_ProfileSelector.png: MockupEtiquetAR-Mob_ProfileSelector-c35be9b9caf3f4b301c864fbc1d96dd2.png
+MockupEtiquetAR-Mob_ResourceVisualization.png: MockupEtiquetAR-Mob_ResourceVisualization-f957070726c16740ecce6bf25272c4b3.png
+MockupEtiquetAR-Mob_TagReader.png: MockupEtiquetAR-Mob_TagReader-806983aa952f75275c970119ca42fba4.png
+QRTagOptions.png: QRTagOptions-1719ed75806d997905ef89c215d63465.png
+ResourceManage.png: ResourceManage-3f8ed1ff65bc38fa2e97291716d3e5b0.png
+SchemaInit-CompletoPos1.png: SchemaInit-CompletoPos1-65aa0440caaf65688c41a14bf970f7cf.png
+SchemaInit-CompletoPos2.png: SchemaInit-CompletoPos2-98ad2ee4cb8efd75fd51a8e4c0cb02cd.png
 rails.png: rails-be8732dac73d845ac5b142c8fb5f9fb0.png
-application.js: application-d6154d53ceaffe8897c7e754fea6366b.js
+application.js: application-a96da0e223d67366d53f79f290b64e36.js
 application.css: application-cfa8809a1d85c087393d84db764dbab8.css
 twitter/glyphicons-halflings-white.png: twitter/glyphicons-halflings-white-13553a5bf21ae3cc374006592488ec64.png
 twitter/glyphicons-halflings.png: twitter/glyphicons-halflings-ab3144065a860d198f1d7d9a4882640c.png
