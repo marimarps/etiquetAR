@@ -42,14 +42,26 @@ class QrsController < ApplicationController
 
   def go
     @qr = Qr.find(params[:id])
-    if params[:p] != nil
-      session[:profile] = params[:p]
+    @owner = @qr.user
+    if params[:p]!= nil
+      session["profile-#{@owner.id}"] = params[:p]
     end
 
-    if session[:profile] == nil 
+    if session["profile-#{@owner.id}"] == nil 
       render
     else
-      redirect_to @qr.resources.where({:profile_id => session[:profile]}).first.uri
+      #We redirect to the profile
+      resource = @qr.resources.where({:profile_id => session["profile-#{@owner.id}"]}).first
+      if resource == nil
+        #There is no resource matching that profile - redirecting to first unspecified.
+        resource = @qr.resources.where({:profile_id => nil}).first
+      end
+
+      if resource == nil
+        #No unspecified resource - we just redirect to home.
+        return redirect_to '/'
+      end
+      redirect_to resource.uri
     end
   end
 
