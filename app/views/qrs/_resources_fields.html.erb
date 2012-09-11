@@ -9,4 +9,8 @@
     <%= f.label 'Resource Content' %><br />
     <%= f.text_field :uri, placeholder:'Insert an URL (e.g. www.google.com)' %>
   </div>
+  <div class="field">
+    <%= f.label :profile %><br />
+    <%= f.collection_select :profile_id, current_user.profiles, :id, :name, :include_blank => 'Uncategorized' %>
+  </div>
 </div>

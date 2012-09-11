@@ -29,7 +29,7 @@
     </div>
       <div class="field">
     <%= f.label :profile %><br />
-    <%= f.collection_select :profile_id, current_user.profiles, :id, :name, :include_blank => 'Please select a profile', :prompt => true %>
+    <%= f.collection_select :profile_id, current_user.profiles, :id, :name, :include_blank => 'Uncategorized' %>
 
 
   </div>
