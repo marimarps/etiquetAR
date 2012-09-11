@@ -10,7 +10,12 @@
       <h1>Personalize, group into collections and print your TAGS</h1>
     </div>
 
-
+<div id="profiles-window" class="modal hide fade"> 
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Edit profiles</h3>
+  </div>
+  <div class="modal-body">
          <table class="table table-condensed">
                <tr>
                 <th>Profile name</th>
@@ -31,11 +36,14 @@
           
               <% end %>
             </table>
+
                <%= form_for(@new_profile, {:html => {:class => "form-inline"}}) do |f| %>
 
 <%= f.text_field :name %>
 <%= f.submit(:class => "btn") %>
-                <% end %>           
+                <% end %>       
+                </div>    
+              </div>
   <% if @new_profile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@new_profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
@@ -65,7 +73,8 @@
                       <%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %>
                   </div>
             </div>
-        
+
+
 
             <div class = "resourcesbox span4">
 
@@ -119,6 +128,13 @@
                       <%= link_to new_qr_path, class: "btn" do %>
                       <i class="icon-plus-sign" align="right", size= "120px"></i>
                       <% end %>
+                  </div>
+            </div>
+            <div class = "qrbox span6 offset4" align="center">
+                  <div class = "span2">
+                     <h3>Add or edit your profiles<h3>
+                      <a data-toggle="modal" data-target="#profiles-window" class="btn"><i class="icon-edit" align="right", size= "120px"></i></a>
+
                   </div>
             </div>
          
