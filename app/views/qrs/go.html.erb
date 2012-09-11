@@ -1,5 +1,12 @@
-Què estàs estudiant?
-<ul><% @qr.user.profiles.each do |prof| %>
-	<li><%= link_to prof.name, :controller => :qrs, :action => :go, :p => prof.id %></li>
-<% end %>
-</ul>
+
+
+
+<!-- Visualización mejor -->
+<div class="well span12 center">
+
+	<h1>Què estàs estudiant?</h1>
+	<ul><h2><% @qr.user.profiles.each do |prof| %></h1>
+		<li><h2><%= link_to prof.name, :controller => :qrs, :action => :go, :p => prof.id %></h2></li>
+	<% end %>
+	</ul>
+</div>
