@@ -4,7 +4,7 @@
 <!-- Visualización mejor -->
 <div class=" well span5" align="center">
 
-		<h1>Què estàs estudiant?</h1>
+		<h1>Choose your profile (select your degree):</h1>
 		<ul><h2><% @qr.user.profiles.each do |prof| %></h1>
 			<li><h2><%= link_to prof.name, :controller => :qrs, :action => :go, :p => prof.id %></h2></li>
 		<% end %>
