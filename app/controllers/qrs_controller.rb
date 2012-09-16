@@ -45,6 +45,7 @@ class QrsController < ApplicationController
     @owner = @qr.user
     if params[:p]!= nil
       session["profile-#{@owner.id}"] = params[:p]
+       @qr.increment! :access_counter
     end
 
     if session["profile-#{@owner.id}"] == nil 
