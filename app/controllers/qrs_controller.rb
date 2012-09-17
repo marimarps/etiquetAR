@@ -47,7 +47,8 @@ class QrsController < ApplicationController
       session["profile-#{@owner.id}"] = params[:p]
     end
 
-    if session["profile-#{@owner.id}"] == nil 
+    if session["profile-#{@owner.id}"] == nil
+      @qr.increment! :view_counter
       render
     else
       #We redirect to the profile
