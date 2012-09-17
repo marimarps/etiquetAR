@@ -62,6 +62,7 @@ class QrsController < ApplicationController
         #No unspecified resource - we just redirect to home.
         return redirect_to '/'
       end
+      resource.increment! :view_counter
       redirect_to resource.uri
     end
   end
