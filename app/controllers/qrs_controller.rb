@@ -67,7 +67,7 @@ class QrsController < ApplicationController
 
   def download
     @qr = Qr.find(params[:id])
-    url = "http://chart.apis.google.com/chart?cht=qr&chl=#{@qr.default_resource}&chs=120x120&choe=UTF-8"
+    url = "http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => @qr.id, :only_path => false)}&chs=120x120&choe=UTF-8"
     image = open(url).read
 
     send_data(image, :filename => "qr.png", :type => 'image/png')
