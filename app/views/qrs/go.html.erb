@@ -5,8 +5,10 @@
 <div class=" well span5" align="center">
 
 		<h1>Choose your profile (select your degree):</h1>
-		<ul><h2><% @qr.user.profiles.each do |prof| %></h1>
-			<li><h2><%= link_to prof.name, :controller => :qrs, :action => :go, :p => prof.id %></h2></li>
-		<% end %>
+		<ul><% @qr.resources.each do |res| %>
+      <% if res.profile != nil %>
+      <li><h2><%= link_to res.profile.name, :controller => :qrs, :action => :go, :p => res.profile.id %></h2></li>
+      <% end %>
+    <% end %>
 		</ul>
 </div>
