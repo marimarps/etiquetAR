@@ -3,4 +3,7 @@ class Resource < ActiveRecord::Base
   belongs_to :qr  
   belongs_to :profile
   #validates :qr_id, presence: true
+  def as_json 
+    return {:profile => (self.profile == nil ? false : self.profile.name), :uri => self.uri}
+  end
 end

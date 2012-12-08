@@ -12,5 +12,7 @@ class Qr < ActiveRecord::Base
   	#we return the URI for the first resource, so everything works as expected
   	return resources.first.uri
   end
-
+  def as_json(options)
+    return {:tag => self.qr_name, :resources => self.resources.as_json}
+  end
 end

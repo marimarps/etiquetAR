@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
     @qrs = current_user.qrs
     @profiles = current_user.profiles
 
     @new_profile = Profile.new
     @new_profile.user = current_user
+    respond_to do |format|
+      format.html { render }
+      format.json { render json: current_user.qrs.to_json }
+    end
   end
 
   def new
@@ -56,6 +60,5 @@ class UsersController < ApplicationController
   def qr_resource
 
   end
-
 
 end

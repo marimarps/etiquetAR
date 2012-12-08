@@ -124,7 +124,7 @@
         
             <div class = "qrbox span6 offset4" align="center">
                   <div class = "span2">
-                     <h3>Add a new TAG<h3>
+                     <h3>Add a new TAG/<h3>
                       <%= link_to new_qr_path, class: "btn" do %>
                       <i class="icon-plus-sign" align="right", size= "120px"></i>
                       <% end %>
@@ -132,8 +132,15 @@
             </div>
             <div class = "qrbox span6 offset4" align="center">
                   <div class = "span2">
-                     <h3>Add or edit your profiles<h3>
+                     <h3>Add or edit your profiles</h3>
                       <a data-toggle="modal" data-target="#profiles-window" class="btn"><i class="icon-edit" align="right", size= "120px"></i></a>
+
+                  </div>
+                </div>           
+             <div class = "qrbox span6 offset4" align="center">
+                  <div class = "span2">
+                     <h3>Export your tags</h3>
+                         <a href="<%= user_path({:format => :json}) %>" class="btn"><i class="icon-edit" align="right", size= "120px"></i></a>
 
                   </div>
             </div>
