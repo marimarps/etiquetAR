@@ -5,36 +5,29 @@
   <% if @qr.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@qr.errors.count, "error") %> prohibited this qr from being saved:</h2>
-
       <ul>
       <% @qr.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
-<% end %>
-
-<!--REGARDING QRS -->
-
-      <%= f.label 'Tag name'%>
-      <%= f.text_field :qr_name, placeholder:'The name of your TAG' %>
-
-
-  <%= f.fields_for :qrs do |qr| %>
-
-
-       <!--%= f.label :qr_name %> <%= qr.text_field :qr_name %>-->
-      <!-- <%= f.label :default_resource %> <%= qr.text_field :default_resource %>-->
-
-  
-       <%= f.fields_for :resources do |builder| %>
-
-
-      <%= render "resources_fields", :f => builder %>
-      <% end %>
   <% end %>
+  <%= f.label 'Tag name'%>
+  <%= f.text_field :qr_name, placeholder:'The name of your TAG' %>
 
 
+    <%= f.label 'Collections' %><br />
+    <%= f.collection_select :collection_ids, @collections, :id, :name,{},{multiple: true} %>
+
+
+
+  <%= f.fields_for :resources do |builder| %>
+    <%= render "resources_fields", :f => builder %>
+  <% end %>
+  <%= f.fields_for :localizations do |builder| %>
+    <%= render "localization_fields", :f => builder %>
+  <% end %>
+  <%= link_to_add_fields "Add Localization", f, :localizations %>
 
   <div class="actions">
     <%= f.submit "Submit"%>

@@ -1,6 +1,9 @@
-class Collection < ActiveRecord::Base
-  attr_accessible :name
-  has_many :qrs, dependent: :destroy
+class Collection < ActiveRecord::Base	
+  attr_accessible :name, :id, :user_id
+  
+  has_and_belongs_to_many :qrs, :join_table => :collections_qrs
+
   belongs_to :user 
-  validates :user_id, presence: true
+
+  
 end

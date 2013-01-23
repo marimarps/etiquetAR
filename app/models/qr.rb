@@ -1,11 +1,25 @@
 class Qr < ActiveRecord::Base
 
-  attr_accessible :default_resource, :resources, :resources_attributes, :qr_name
-  has_many :resources, dependent: :destroy
-  accepts_nested_attributes_for :resources
-  belongs_to :user  
+  attr_accessible :qr_name, :default_resource, :collection_ids, :collection_id, :collections_attributes, :resources_attributes ,:localizations_attributes
+  
   validates :user_id, presence: true
-  belongs_to :collection
+
+  has_many :resources, dependent: :destroy
+  has_many :localizations, dependent: :destroy
+  has_and_belongs_to_many :collections, :join_table => :collections_qrs
+
+  belongs_to :user  
+
+  accepts_nested_attributes_for :resources
+  accepts_nested_attributes_for :localizations
+  accepts_nested_attributes_for :collections
+
+  after_save :assign_default_collection
+
+
+
+  def assign_default_collection
+  end
 
 
   def default_resource

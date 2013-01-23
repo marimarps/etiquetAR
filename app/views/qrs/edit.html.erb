@@ -1,7 +1,13 @@
 <h1>Update your TAG</h1>
 <div class="span12">
-<%= render 'form' %>
+	<%= render 'form' %>
 </div>
 <div class="span12">
-<%= link_to 'Your TAGS', current_user %>
+	<%= link_to 'Your TAGS', current_user %>
 </div>
+<% if !@json.blank? %>
+	<div class ="span8">
+	<%= gmaps4rails(@json) %>
+	</div>
+<% end %>
+

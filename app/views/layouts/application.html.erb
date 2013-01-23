@@ -9,13 +9,23 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-     <div class="container">
-        <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
-        <%= yield %>
-        <%= render 'layouts/footer' %>
-        <%= debug(params) if Rails.env.development? %>
-    </div>
+    <div id="main" role="main">
+      <div class="container">
+        <div class="content">
+          <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+          <% end %>
+           <div class="row">
+            <div class="span12">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+              <footer>
+              <%= yield :scripts %>
+            <%= render 'layouts/footer' %>
+          </footer>
   </body>
 </html>

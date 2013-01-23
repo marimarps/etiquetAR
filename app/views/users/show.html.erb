@@ -1,14 +1,160 @@
 <% provide(:title, @user.name) %>
-<body>
-    <div class= "span1">
-            <%= gravatar_for @user %>
-            <centering>
-              <%= @user.name %>
-            </centering>
-    </div>
-    <div class= "span8">
+  <!--Tittle-->
+   <% num_qrs = @qrs.count %>  
+
+
+  <div id= "tittle" class= "span12">    
+    <div class= "span8 offset2">
       <h1>Personalize, group into collections and print your TAGS</h1>
     </div>
+  </div>
+
+  <!--Listing the QRS that belong to current_user-->
+  <div class="span12">
+    <div class="span2 aside">
+        <h5 >
+          <div class="row">
+          <%= gravatar_for @user %>
+          <%= @user.name %>
+        </div>
+        </h5>
+        <h5 style="text-indent:-2em;">
+          Actions
+        </h5>
+        <p>New tag
+          <%= link_to new_qr_path do %>
+          <i class="icon-plus-sign pull-right" align="right", size= "16px"></i>
+          <% end %>
+        </p>
+        <p>New profile
+         <a data-toggle="modal" data-target="#profiles-window" >
+          <i class="icon-edit pull-right" align="right", size= "16px"></i></a>
+        </p>
+        <h5 style="text-indent:-2em;">
+          Collections
+        </h5>
+          <ul class="unstyled">
+          <% @collections.each do |collection|%>
+            <li><%= link_to collection.name %> (<%= collection.qrs.count%>)</li> 
+          <% end%>
+            <li> New <a data-toggle="modal" data-target="#collection-window" ><i class="icon-edit pull-right" align="right", size= "16px"></i></a> </li>
+          </ul>
+    </div>
+
+  <div class ="span10 qrresourcesbox"> <!--Engloba QR divs + Resources div-->
+    <% if @qrs.any? %>
+      <table>
+      <% @qrs.each_with_index do |qr,i| %>
+      <tr>
+        <td class = "span2">
+          <h4 class="qr_name" align="center"><%= qr.qr_name %></h4>
+          <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+            <small class="span" align="center">
+            <%= link_to 'Edit', edit_qr_path(qr) %>  |
+            <%= link_to 'Remove', qr, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+            <%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %>
+            </small>
+        </td>
+        <td class = "span6">
+          <table class="table table-condensed">
+            <tr>
+              <th>Resource Name</th>
+              <th>URL</th>
+              <th>Profile</th>
+              <th>Manage</th>
+            </tr>
+            <% qr.resources.each do |resource| %>
+            <tr>
+              <td><%= resource.name %></td>
+              <td><%= resource.uri %></td>
+              <td><%= resource.profile != nil ? resource.profile.name : "(none)" %></td>
+              <td>
+                <%= link_to edit_qr_resource_path(resource.qr_id, resource), class: "btn" do %>
+                  <i class="icon-edit"></i>
+                <% end %>
+                <%= link_to qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" do %>
+                  <i class="icon-remove"></i>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+            <tr>
+              <td><b>Add new resource!</b></td>
+              <td></td><td></td>
+              <td>
+                <%= link_to new_qr_resource_path(qr.id), class: "btn" do %>
+                  <i class="icon-plus-sign" align="right"></i>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td class="span2">
+          <div  class= "span2">
+          <%if num_qrs == 1 %>
+            <% @json = qr.localizations.to_gmaps4rails %>
+            <%= gmaps4rails(@json) %>
+          <%else%>
+            <% if i == 0 %> 
+              <% @json = qr.localizations.to_gmaps4rails %>
+              <%= gmaps(:markers     => { :data => @json },
+              :map_options => { :auto_adjust => true, :raw => '{ panControl: false, zoomControl: true,
+                                         mapTypeControl: false,
+                                         scaleControl: false,
+                                         streetViewControl: false,
+                                         overviewMapControl: false}'},
+
+              :last_map    => false) %>
+            <%elsif i == num_qrs-1%>
+              <% @json = qr.localizations.to_gmaps4rails %>
+              <%= gmaps(:markers     => { :data => @json },
+              :map_options => { :id => 'map'+qr.id.to_s, :auto_adjust => true, :raw => '{ panControl: false, zoomControl: true,
+                                         mapTypeControl: false,
+                                         scaleControl: false,
+                                         streetViewControl: false,
+                                         overviewMapControl: false}'},
+              :scripts     => :none ) %>
+            <% else %>
+            <% @json = qr.localizations.to_gmaps4rails %>
+              <%= gmaps(:markers     => { :data => @json },
+              :map_options => { :id => 'map'+qr.id.to_s, :auto_adjust => true, :raw => '{ panControl: false, zoomControl: true,
+                                         mapTypeControl: false,
+                                         scaleControl: false,
+                                         streetViewControl: false,
+                                         overviewMapControl: false}'},
+
+              :last_map    => false) %>
+            <% end %>
+          <% end %>
+
+
+
+        </div>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+
+    <% else %>
+      <div class= "span8 offset1" align="center">
+        <br/><br/>
+        <h2>You don't have any TAG yet!!! Click on New Tag to start creating your TAGS. </h2>
+      </div>  
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="profiles-window" class="modal hide fade"> 
   <div class="modal-header">
@@ -16,149 +162,63 @@
     <h3>Edit profiles</h3>
   </div>
   <div class="modal-body">
-         <table class="table table-condensed">
-               <tr>
-                <th>Profile name</th>
-                <th>Manage</th>
-              </tr>
-              <% @profiles.each do |profile| %>
-              <tr>
-                <td><%= profile.name %></td>
-                <td>
-                    <%= link_to edit_profile_path(profile), class: "btn" do %>
-                    <i class="icon-edit"></i>
-                    <% end %>
-                  <%= link_to profile_path(profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" do %>
-                    <i class="icon-remove"></i>
-                  <% end %>
-                </td>
-              </tr>
-          
-              <% end %>
-            </table>
-
-               <%= form_for(@new_profile, {:html => {:class => "form-inline"}}) do |f| %>
-
-<%= f.text_field :name %>
-<%= f.submit(:class => "btn") %>
-                <% end %>       
-                </div>    
-              </div>
-  <% if @new_profile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@new_profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
-
-      <ul>
-      <% @new_profile.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+    <table class="table table-condensed">
+      <tr>
+        <th>Profile name</th>
+        <th>Manage</th>
+      </tr>
+      <% @profiles.each do |profile| %>
+      <tr>
+        <td><%= profile.name %></td>
+        <td><%= link_to edit_profile_path(profile), class: "btn" do %>
+            <i class="icon-edit"></i>
+          <% end %>
+          <%= link_to profile_path(profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" do %>
+            <i class="icon-remove"></i>
+          <% end %>
+        </td>
+      </tr>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <!--Listing the QRS that belong to current_user-->
-    <% if @qrs.any? %>
-        <% @qrs.each do |qr| %>
-
-        <div class ="qrresourcesbox span12"> <!--Engloba QR divs + Resources div-->
-
-            <div class = "qrbox span6">
-                  <div class = "span2">
-                     <h3>TAG Name: <%= qr.qr_name %><h3>
-                      <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%>
-                  </div>
-                  <div class = "span4">
-                       <%= link_to 'Edit', edit_qr_path(qr) %>  |
-                        <%= link_to 'Remove', qr, method: :delete, data: { confirm: 'Are you sure?' } %> | 
-                      <%= link_to 'Download', url_for(:action => 'download_qr', :id => qr.id) %>
-                  </div>
-            </div>
+    </table>
+    <%= form_for(@new_profile, {:html => {:class => "form-inline"}}) do |f| %>
+      <% if @new_profile.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@new_profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+            <ul>
+              <% @new_profile.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+        </div>
+      <% end %>
+      <%= f.text_field :name %>
+      <%= f.submit(:class => "btn") %>
+    <% end %>       
+  </div>
+</div>
 
 
+<div id="collection-window" class="modal hide fade"> 
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Edit collections</h3>
+  </div>
+  <div class="modal-body">
 
-            <div class = "resourcesbox span4">
+    <%= form_for(@new_collection, {:html => {:class => "form-inline"}}) do |f| %>
+      <% if @new_collection.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@new_collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+            <ul>
+              <% @new_collection.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+        </div>
+      <% end %>
+      <%= f.text_field :name %>
+      <%= f.submit(:class => "btn") %>
+    <% end %>       
+  </div>
+</div>
 
-
-                <table class="table table-condensed">
-                   <tr>
-                    <th>Resource Name</th>
-                    <th>URL</th>
-                     <th>Profile</th>
-                    <th>Manage</th>
-                  </tr>
-                  <% qr.resources.each do |resource| %>
-                  <tr>
-                    <td><%= resource.name %></td>
-                    <td><%= resource.uri %></td>
-                    <td><%= resource.profile != nil ? resource.profile.name : "(none)" %></td>
-
-                    <td>
-                      <%# link_to 'Show', qr_resource_path(resource.qr, resource) %>
-                      <%= link_to edit_qr_resource_path(resource.qr_id, resource), class: "btn" do %>
-                        <i class="icon-edit"></i>
-                        <% end %>
-                      <%= link_to qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" do %>
-                        <i class="icon-remove"></i>
-                      <% end %>
-
-                    </td>
-                  </tr>
-
-                  
-                  <% end %>
-
-                  <tr>
-                    <td><b>Add new resource!</b></td>
-                    <td></td>
-                    <td>
-                      <%= link_to new_qr_resource_path(qr.id), class: "btn" do %>
-                      <i class="icon-plus-sign" align="right"></i>
-                      <% end %>
-                    </td>
-    
-                  </tr>
-                </table>
-            </div>
-           </div>
-        <% end %>
-        
-            <div class = "qrbox span6 offset4" align="center">
-                  <div class = "span2">
-                     <h3>Add a new TAG/<h3>
-                      <%= link_to new_qr_path, class: "btn" do %>
-                      <i class="icon-plus-sign" align="right", size= "120px"></i>
-                      <% end %>
-                  </div>
-            </div>
-            <div class = "qrbox span6 offset4" align="center">
-                  <div class = "span2">
-                     <h3>Add or edit your profiles</h3>
-                      <a data-toggle="modal" data-target="#profiles-window" class="btn"><i class="icon-edit" align="right", size= "120px"></i></a>
-
-                  </div>
-                </div>           
-             <div class = "qrbox span6 offset4" align="center">
-                  <div class = "span2">
-                     <h3>Export your tags</h3>
-                         <a href="<%= user_path({:format => :json}) %>" class="btn"><i class="icon-edit" align="right", size= "120px"></i></a>
-
-                  </div>
-            </div>
-         
-  <% else %>
-
-
-    <div class= "span8 offset1" align="center">
-        <br/><br/>
-        <h2>You don't have any TAG yet!!! Click on New Tag to start creating your TAGS. </h2>
-    </div>
-    <div class = "qrbox span6 offset4" align="center">
-                  <div class = "span2">
-                     <h3>Add a new TAG<h3>
-                      <%= link_to new_qr_path, class: "btn" do %>
-                      <i class="icon-plus-sign" align="right", size= "120px"></i>
-                      <% end %>
-                  </div>
-            </div>
-  <% end %>
-</body>

@@ -1,4 +1,6 @@
 EtiquetAR::Application.routes.draw do
+  resources :localizations
+
   resources :collections
 
   #Resources can only be added when they belong to a QR

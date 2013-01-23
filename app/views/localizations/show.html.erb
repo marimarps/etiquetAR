@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Address:</b>
+  <%= @localization.address %>
+</p>
+
+<p>
+  <b>Gmaps:</b>
+  <%= @localization.gmaps %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @localization.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @localization.longitude %>
+</p>
+
+
+<%= link_to 'Edit', edit_localization_path(@localization) %> |
+<%= link_to 'Back', localizations_path %>

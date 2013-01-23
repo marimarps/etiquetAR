@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917105420) do
+ActiveRecord::Schema.define(:version => 20121102163927) do
 
   create_table "collections", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,25 @@ ActiveRecord::Schema.define(:version => 20120917105420) do
     t.datetime "updated_at", :null => false
     t.string   "user_id"
   end
+
+  create_table "collections_qrs", :id => false, :force => true do |t|
+    t.integer "qr_id",         :null => false
+    t.integer "collection_id", :null => false
+  end
+
+  add_index "collections_qrs", ["collection_id", "qr_id"], :name => "index_collections_qrs_on_collection_id_and_qr_id"
+
+  create_table "localizations", :force => true do |t|
+    t.text     "address"
+    t.boolean  "gmaps",      :default => false
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "qr_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "localizations", ["id"], :name => "index_localizations_on_id", :unique => true
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
@@ -40,7 +59,6 @@ ActiveRecord::Schema.define(:version => 20120917105420) do
     t.integer  "user_id"
     t.string   "collection_id"
     t.string   "qr_name"
-    t.integer  "view_counter"
   end
 
   create_table "resources", :force => true do |t|

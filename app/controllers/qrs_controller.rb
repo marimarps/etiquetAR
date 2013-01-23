@@ -30,7 +30,7 @@ class QrsController < ApplicationController
   # GET /qrs/1.json
   def show
     @qr = Qr.find(params[:id])
-    @qr_uri = "www.etiquetar.com.es/qrs/"+params[:id]
+    @qr_uri = "http://etiquetar.herokuapp.com/qrs/"+params[:id]
 
     @resources=Resource.where(:qr_id => @qr.id)
 
@@ -43,28 +43,37 @@ class QrsController < ApplicationController
   def go
     @qr = Qr.find(params[:id])
     @owner = @qr.user
-    if params[:p]!= nil
-      session["profile-#{@owner.id}"] = params[:p]
+    if @qr.resources.count > 0 #hay recursos, los mostramos
+        if @qr.resources.where('profile_id IS NOT NULL').all.count > 0 #check si existe algun recurso con profile para este qr?
+            render
+        else
+          redirect_to @qr.resources.first.uri
+        end
+    else #no hay recursos
+       redirect_to root_path, notice: 'Ooops! No resources asociated to this TAG'
     end
 
-    if session["profile-#{@owner.id}"] == nil
-      @qr.increment! :view_counter
-      render
-    else
+
+
+  
+
+    #if params[:p]!= nil
+      #session["profile-#{@owner.id}"] = params[:p]
+    ##end
+
+    #if session["profile-#{@owner.id}"] == nil 
+     # render
+    #else
+      #Con cookies!!!!!!!!!!
       #We redirect to the profile
-      resource = @qr.resources.where({:profile_id => session["profile-#{@owner.id}"]}).first
-      if resource == nil
+      #resource = @qr.resources.where({:profile_id => session["profile-#{@owner.id}"]}).first
+      #if resource == nil
         #There is no resource matching that profile - redirecting to first unspecified.
-        resource = @qr.resources.where({:profile_id => nil}).first
-      end
+       # resource = @qr.resources.where({:profile_id => nil}).first
+      #end
+      #-------------
 
-      if resource == nil
-        #No unspecified resource - we just redirect to home.
-        return redirect_to '/'
-      end
-      resource.increment! :view_counter
-      redirect_to resource.uri
-    end
+    
   end
 
   def download
@@ -81,7 +90,9 @@ class QrsController < ApplicationController
       @qr = Qr.new
       #We add a resource if it isn't one
       #if @qr.resources.empty?
-      @resource = @qr.resources.build 
+      @qr.resources.build 
+      @collections = Collection.where(:user_id => current_user.id)
+
        #@qr.resources.build
       #end
 
@@ -102,7 +113,8 @@ class QrsController < ApplicationController
   # GET /qrs/1/edit
   def edit
     @qr = Qr.find(params[:id])
-
+    @collections = Collection.where("user_id = ?", current_user.id)
+      
   end
 
   # POST /qrs

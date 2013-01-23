@@ -1,15 +1,13 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find(current_user.id)
+    @user = User.find(params[:id])
     @qrs = current_user.qrs
     @profiles = current_user.profiles
-
     @new_profile = Profile.new
     @new_profile.user = current_user
-    respond_to do |format|
-      format.html { render }
-      format.json { render json: current_user.qrs.to_json }
-    end
+    @collections = Collection.find_all_by_user_id(params[:id])
+    @new_collection = current_user.collections.build
+
   end
 
   def new
@@ -60,5 +58,6 @@ class UsersController < ApplicationController
   def qr_resource
 
   end
+
 
 end

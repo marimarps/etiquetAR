@@ -1,14 +1,16 @@
 
 
-
 <!-- Visualización mejor -->
-<div class=" well span5" align="center">
+<div class=" well span5 offset3" align="center">
 
-		<h1>Choose your profile (select your degree):</h1>
-		<ul><% @qr.resources.each do |res| %>
-      <% if res.profile != nil %>
-      <li><h2><%= link_to res.profile.name, :controller => :qrs, :action => :go, :p => res.profile.id %></h2></li>
-      <% end %>
-    <% end %>
+		<h1>What do you know about <%= @qr.qr_name%>?</h1>
+		<ul class="unstyled"><% @qr.resources.each do |res| %>
+      		<% if res.profile != nil %>
+      			<li><h2><%= link_to res.profile.name, res.uri %></h2></li>
+      		<% end %>
+    	<% end %>
 		</ul>
+</div>
+<div class="span12" align="center">
+<em> We are on beta!. Our apologies for any mistake.<em>
 </div>
