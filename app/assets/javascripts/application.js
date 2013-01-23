@@ -19,11 +19,16 @@
 //= require gmaps4rails/gmaps4rails.bing.js.coffee
 //= require gmaps4rails/gmaps4rails.googlemaps.js.coffee
 //= require gmaps4rails/gmaps4rails.base.js
+//= require best_in_place
+//= require best_in_place.purr
+//= require chosen-jquery
 //= require_tree .
 
 jQuery(function($) {
 
-  
+    /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
+
 
 })
 

@@ -13,7 +13,7 @@ gem 'bootstrap-will_paginate', '0.0.6'
 require 'open-uri'
 gem 'rqrcode'
 require 'base64'
-
+gem "best_in_place"
 
 
 group :development do

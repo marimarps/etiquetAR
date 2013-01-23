@@ -127,10 +127,10 @@ class QrsController < ApplicationController
     respond_to do |format|
       if @qr.save 
         format.html { redirect_to current_user, notice: 'Qr was successfully created.' }
-        format.json { render json: @qr, status: :created, location: @qr }
+        format.json { respond_with_bip(@qr) } 
       else
         format.html { redirect_to current_user, notice: 'Oooops! Something went wrong while creating. Try again.'  }
-        format.json { render json: @qr.errors, status: :unprocessable_entity }
+        format.json { respond_with_bip(@qr) }
       end
     end
   end
@@ -143,10 +143,10 @@ class QrsController < ApplicationController
     respond_to do |format|
       if @qr.update_attributes(params[:qr])
         format.html { redirect_to current_user, notice: 'Qr was successfully updated.' }
-        format.json { head :no_content }
+        format.json { respond_with_bip(@qr) }
       else
         format.html { redirect_to current_user, notice: 'Oooops! Something went wrong while updating. Try again.'  }
-        format.json { render json: @qr.errors, status: :unprocessable_entity }
+        format.json { respond_with_bip(@qr) }
       end
     end
 

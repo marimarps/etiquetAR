@@ -65,7 +65,7 @@
             </tr>
             <% qr.resources.each do |resource| %>
             <tr>
-              <td><%= resource.name %></td>
+              <td><%= best_in_place resource, :name, :type => :input, :path => [qr, resource] %></td>
               <td><%= resource.uri %></td>
               <td><%= resource.profile != nil ? resource.profile.name : "(none)" %></td>
               <td>
