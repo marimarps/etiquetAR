@@ -24,7 +24,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/new.json
   def new
     @profile = Profile.new
-    @profile.user = current_user
+    #@profile.user = current_user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @profile }
@@ -40,11 +40,11 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(params[:profile])
-    @profile.user = current_user
+    #@profile.user = current_user
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to @profile.user, notice: 'Profile was successfully created.' }
+        format.html { redirect_to @profile.collection, notice: 'Profile was successfully created.' }
         format.json { render json: @profile, status: :created, location: @profile }
       else
         format.html { render action: "new" }

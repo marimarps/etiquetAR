@@ -1,7 +1,7 @@
 <h1><%= link_to collection.name, collection %></h1>
 <ul class="nav nav-tabs" data-tabs="tabs">
-    <li class="active"><a data-toggle="tab" href="#qrs">QRs</a></li>
-    <li><a data-toggle="tab" href="#profiles">Profiles</a></li>
+    <li class="active"><a data-toggle="pill" href="#qrs">QRs</a></li>
+    <li><a data-toggle="pill" href="#profiles">Profiles</a></li>
 </ul>
 <div class="tab-content">
 <div class="tab-pane active" id="qrs">
@@ -23,10 +23,10 @@
             </tr>
             <% qr.resources.each do |resource| %>
             <tr>
-              <td><%= best_in_place resource, :name, :type => :input, :path => [qr, resource] %></td>
-              <td><%= best_in_place resource, :uri, :type => :input, :path => [qr, resource] %></td>
-              <td><%= best_in_place resource, :profile_id, :type => :select, :path => [qr, resource], :collection => ([["", "Uncategorized"]
-              ] + current_user.profiles.collect{|f| [f.id, f.name]}) %></td>
+              <td><%= best_in_place resource, :name, :type => :input, :path => [collection, qr, resource] %></td>
+              <td><%= best_in_place resource, :uri, :type => :input, :path => [collection, qr, resource] %></td>
+              <td><%= best_in_place resource, :profile_id, :type => :select, :path => [collection, qr, resource], :collection => ([["", "Uncategorized"]
+              ] + collection.profiles.collect{|f| [f.id, f.name]}) %></td>
               <td width="20px">
                 <%= link_to qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' } do %>
                   <i class="icon-remove"></i>
@@ -35,11 +35,11 @@
             </tr>
             <% end %>
             <tr>
-            <%= form_for([qr, Resource.new], :html => { :class => 'form' }) do |f| %>
+            <%= form_for([collection, qr, Resource.new], :html => { :class => 'form' }) do |f| %>
 
 		        <td><%= f.text_field :name, placeholder:'The name of your resource'%></td>
 		        <td><%= f.text_field :uri, placeholder:'URL' %></td>
-		        <td><%= f.collection_select :profile_id, current_user.profiles, :id, :name, :include_blank => 'Uncategorized' %></td>
+		        <td><%= f.collection_select :profile_id, collection.profiles, :id, :name, :include_blank => 'Uncategorized' %></td>
 		        <td><%= f.submit "Submit", class:'btn'%></td>
 		 	 <% end %>
 			</tr>
@@ -57,16 +57,26 @@ Profiles on this collection:
               <th>Profile Name</th>
               <th>Remove</th>
             </tr>
-            <% current_user.profiles.each do |profile| %>
+            <% collection.profiles.each do |profile| %>
             <tr>
-              <td><%= best_in_place profile, :name, :type => :input %></td>
+              <td><%= best_in_place profile, :name, :type => :input, :path => [collection, profile] %></td>
               <td width="20px">
-                <%= link_to profile_path(profile), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <%= link_to collection_profile_path(collection, profile), method: :delete, data: { confirm: 'Are you sure?' } do %>
                   <i class="icon-remove"></i>
                 <% end %>
               </td>
             </tr>
+
             <% end %>
+
+
+            <tr>
+                <%= form_for([collection, Profile.new], :html => { :class => 'form' }) do |f| %>
+		        <td><%= f.text_field :name, placeholder:'Profile name'%></td>    <%= f.hidden_field :collection_id, :value => collection.id %>
+
+		        <td><%= f.submit "Submit", class:'btn'%></td>
+		 	 <% end %>
+		 	</tr>
           </table>
 </div>
 </div>

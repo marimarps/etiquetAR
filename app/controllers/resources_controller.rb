@@ -50,7 +50,6 @@ class ResourcesController < ApplicationController
 
     @qr=current_user.qrs.find(params[:qr_id])
     @resource = @qr.resources.build(params[:resource])
-
     #example, what we have done in Qrs
     #@qr = Qr.new(params[:qr])
     #@qr=current_user.qrs.build(params[:qr])

@@ -1,16 +1,19 @@
 EtiquetAR::Application.routes.draw do
   resources :localizations
 
-  resources :collections
+  resources :collections do
+    resources :profiles
+    resources :qrs do
+      resources :resources #, :only=>[:new, :create]
+    end
+  end
 
   #Resources can only be added when they belong to a QR
-  resources :qrs do
-    resources :resources #, :only=>[:new, :create]
-  end
+
 #  resources :resources, :except=>[:new, :create]
 
   resources :users
-  resources :profiles
+  #resources :profiles
   resources :rqr
 
   resources :sessions, only: [:new, :create, :destroy]

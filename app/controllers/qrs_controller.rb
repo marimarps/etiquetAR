@@ -44,7 +44,7 @@ class QrsController < ApplicationController
     @qr = Qr.find(params[:id])
     @owner = @qr.user
     if @qr.resources.count > 0 #hay recursos, los mostramos
-        if @qr.resources.where('profile_id IS NOT NULL').all.count > 0 #check si existe algun recurso con profile para este qr?
+        if @qr.resources.count > 0 #check si existe algun recurso con profile para este qr?
             render
         else
           redirect_to @qr.resources.first.uri
@@ -100,7 +100,7 @@ class QrsController < ApplicationController
       #p @qr.resources
       respond_to do |format|
        format.html
-       format.json { render json: @qr }
+       format.json { respond_with_bip(@qr) }
       end
 
       #respond_to do |format|

@@ -4,6 +4,6 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :qrs, :join_table => :collections_qrs
 
   belongs_to :user 
-
+  has_many :profiles
   
 end
