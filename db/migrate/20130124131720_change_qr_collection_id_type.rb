@@ -1,8 +1,8 @@
 class ChangeQrCollectionIdType < ActiveRecord::Migration
   def up
+  	remove_column :qrs, :collection_id
   	add_column :qrs, :collection_id, :integer
   	add_index :qrs, :collection_id
-  	remove_column :qrs, :collection_id
   end
 
   def down
