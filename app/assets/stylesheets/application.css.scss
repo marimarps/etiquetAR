@@ -9,15 +9,27 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap_and_overrides
+ * require bootstrap_and_overrides
  *= require gmaps4rails
  *= require chosen
  *= require_tree .
 
 
  */
+
+@import "bootswatch/cosmo/variables";
+@import "bootstrap";
+
+// Bootstrap body padding for fixed navbar
+body { padding-top: 60px; }
+
+// Responsive styles go here in case you want them
+@import "bootstrap-responsive";
+
+// And finally bootswatch style itself
+@import "bootswatch/cosmo/bootswatch";
+
 .best_in_place {
-  color: #;
   padding: .1m;
   cursor: hand;
   cursor: pointer;

@@ -1,12 +1,29 @@
+<div class="page-header">
 <h1>Your collections</h1>
+</div>
+<% if @collections.count > 0 %>
+<h2>You have the following collections:</h2>
 
 <% @collections.each do |collection| %>
 
-    <%= render :partial => "collection", :object => collection %>
+<div class="well container">
+  <div class="pull-left"><h3><%=collection.name %></h3><%= pluralize(collection.qrs.count, "QR") %>, <%= pluralize(collection.qrs.count, "profile") %></div>
+  <div class="pull-right">
+    <%= link_to collection_path(collection), :class => ['btn-primary btn btn-large'] do %><i class="icon-edit icon-white"></i>Edit<% end %>
+    <%= link_to collection, method: :delete, :class => ['btn-primary btn btn-large'], data: { confirm: 'Are you sure? This will remove all the QRs inside the collection.' } do %><i class="icon-white icon-remove-sign"></i>Remove<% end %>
 
+  </div></div>
+<% end %>
+<%= form_for(Collection.new, :html => { :class => 'form-inline pull-right' }) do |f| %>
+            <td><%= f.text_field :name, placeholder:'Collection name'%></td> 
+            <td><%= f.button "Add a new collection", type: "submit", class:'btn btn-primary' do %><%end%></td>
 <% end %>
 
+<% else %>
 
-<br />
-
-<%= link_to 'New Collection', new_collection_path %>
+<h2>You have no collections.</h2>
+<%= form_for(Collection.new, :html => { :class => 'form-inline pull-right' }) do |f| %>
+<%= f.text_field :name, placeholder:'Collection name'%></td> 
+<%= f.button "Add a new collection", type: "submit", class:'btn btn-primary' do %><%end%>
+            	<%end%>
+<% end %>

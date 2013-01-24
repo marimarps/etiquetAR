@@ -88,26 +88,13 @@ class QrsController < ApplicationController
   # GET /qrs/new.json
   def new
       @qr = Qr.new
-      #We add a resource if it isn't one
-      #if @qr.resources.empty?
+
       @qr.resources.build 
-      @collections = Collection.where(:user_id => current_user.id)
 
-       #@qr.resources.build
-      #end
-
-      #p @qr
-      #p @qr.resources
       respond_to do |format|
        format.html
        format.json { respond_with_bip(@qr) }
       end
-
-      #respond_to do |format|
-        #  format.html # new.html.erb
-       # format.json { render json: @qr }
-     # end
-
   end
 
   # GET /qrs/1/edit
@@ -120,16 +107,19 @@ class QrsController < ApplicationController
   # POST /qrs
   # POST /qrs.json
   def create
-   
-    @qr = current_user.qrs.build(params[:qr])
+    @collection = Collection.find(params[:collection_id])
+    @qr = @collection.qrs.build(params[:qr])
+    @qr.user = current_user
 
+    
     #We create a default resource for the QR.    
     respond_to do |format|
       if @qr.save 
-        format.html { redirect_to current_user, notice: 'Qr was successfully created.' }
+        format.html { redirect_to @collection, notice: 'Qr was successfully created.' }
         format.json { respond_with_bip(@qr) } 
       else
-        format.html { redirect_to current_user, notice: 'Oooops! Something went wrong while creating. Try again.'  }
+        p @qr.errors
+        format.html { redirect_to @collection, notice: 'Oooops! Something went wrong while creating. Try again.'  }
         format.json { respond_with_bip(@qr) }
       end
     end
@@ -142,10 +132,10 @@ class QrsController < ApplicationController
 
     respond_to do |format|
       if @qr.update_attributes(params[:qr])
-        format.html { redirect_to current_user, notice: 'Qr was successfully updated.' }
+        format.html { redirect_to @qr.collection, notice: 'Qr was successfully updated.' }
         format.json { respond_with_bip(@qr) }
       else
-        format.html { redirect_to current_user, notice: 'Oooops! Something went wrong while updating. Try again.'  }
+        format.html { redirect_to @qr.collection, notice: 'Oooops! Something went wrong while updating. Try again.'  }
         format.json { respond_with_bip(@qr) }
       end
     end
@@ -159,7 +149,7 @@ class QrsController < ApplicationController
     @qr.destroy
 
     respond_to do |format|
-        format.html { redirect_to current_user, notice: 'Qr was successfully removed.' }
+        format.html { redirect_to @qr.collection, notice: 'Qr was successfully removed.' }
         format.json { head :no_content }
     end
   end

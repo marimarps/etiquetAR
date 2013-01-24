@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
-  after_save :create_example_qr
 
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -29,15 +28,8 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
-  private
-
+  private 
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
-    end
-
-    def create_example_qr
-      @qr = self.qrs.create!(qr_name: 'example_qr')
-      @qr.collections.create!(name: 'All Tags', user_id: self.id)
-      @qr.resources.create!(:name => 'example_resource', :uri => 'http://www.etiquetar.com.es')
     end
 end

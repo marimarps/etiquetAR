@@ -56,10 +56,10 @@ class ResourcesController < ApplicationController
 
     respond_to do |format|
       if @resource.save
-        format.html { redirect_to  current_user, notice: 'Resource was successfully created.' }
+        format.html { redirect_to  @qr.collection, notice: 'Resource was successfully created.' }
         format.json { render json: @resource, status: :created, location: @resource }
       else
-        format.html { redirect_to  current_user, notice: 'Oooops! Something happened. Resource not saved.' }
+        format.html { redirect_to  @qr.collection, notice: 'Oooops! Something happened. Resource not saved.' }
         format.json { render json: @resource.errors, status: :unprocessable_entity }
       end
     end
@@ -73,11 +73,11 @@ class ResourcesController < ApplicationController
 
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
-        format.html { redirect_to  current_user, notice: 'Resource was successfully updated.' }
+        format.html { redirect_to  @qr.collection, notice: 'Resource was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @resource.errors, status: :unprocessable_entity }
+        format.json { render json: @qr.collection, status: :unprocessable_entity }
       end
     end
   end
@@ -89,7 +89,7 @@ class ResourcesController < ApplicationController
     @resource.destroy
 
     respond_to do |format|
-      format.html { redirect_to current_user, notice: 'Resource successfully destroyed.' }
+      format.html { redirect_to @qr.collection, notice: 'Resource successfully destroyed.' }
       format.json { head :no_content }
     end
   end

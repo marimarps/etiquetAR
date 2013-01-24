@@ -8,7 +8,7 @@ gem 'rqrcode-rails3'
 gem 'mini_magick'
 #For pagination of QR coes
 gem 'will_paginate', '3.0.3'
-gem 'bootstrap-will_paginate', '0.0.6'
+#gem 'bootstrap-will_paginate', '0.0.6'
 
 require 'open-uri'
 gem 'rqrcode'
@@ -27,13 +27,16 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'bootswatch-rails'
+  gem 'bootstrap-sass'
+#  gem 'less-rails'
   gem 'sass-rails',   '~> 3.2.5'
   gem 'coffee-rails', '~> 3.2.2'
-  gem 'bootstrap-sass'
+#  gem 'bootstrap-sass'
   gem 'chosen-rails'
   gem 'jquery-rails'
-  gem 'twitter-bootstrap-rails'
-  gem 'twitter-bootstrap-rails-confirm'
+  #gem 'twitter-bootstrap-rails'
+  #gem 'twitter-bootstrap-rails-confirm'
   gem 'uglifier', '>= 1.2.4'
 end
 

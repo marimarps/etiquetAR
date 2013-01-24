@@ -1,83 +1,107 @@
-<h1><%= link_to collection.name, collection %></h1>
-<ul class="nav nav-tabs" data-tabs="tabs">
-    <li class="active"><a data-toggle="pill" href="#qrs">QRs</a></li>
-    <li><a data-toggle="pill" href="#profiles">Profiles</a></li>
+<h1><%= best_in_place collection, :name, :type => :input %></h1>
+<%= link_to collection, method: :delete, data: { confirm: 'Are you sure? This will remove all the QRs inside the collection.' }, class: "pull-right btn btn-primary" do%><i class="icon-white icon-remove-sign"></i>Remove collection<% end %>
+<ul class="nav nav-pills" data-tabs="tabs">
+  <li class="active"><a data-toggle="pill" href="#qrs">QRs</a></li>
+  <li><a data-toggle="pill" href="#profiles">Profiles</a></li>
 </ul>
+
+
+
+
 <div class="tab-content">
-<div class="tab-pane active" id="qrs">
-          <%= link_to new_qr_path, class: "btn" do %>
-                  <i class="icon-plus-sign" align="right"></i> Add a new QR
-           <% end %>
-<% collection.qrs.each do |qr| %>
-	<div class="well">
-		<div class="header">
-			<div style="float: right;"><%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%></div>
-			<div style="float: left"><%= best_in_place qr, :qr_name, :type => :input, :classes => :qrtitle %></div>
-		</div>
-		 <table class="table table-condensed">
-            <tr>
-              <th>Resource Name</th>
-              <th>URL</th>
-              <th>Profile</th>
-              <th>Remove</th>
-            </tr>
-            <% qr.resources.each do |resource| %>
-            <tr>
-              <td><%= best_in_place resource, :name, :type => :input, :path => [collection, qr, resource] %></td>
-              <td><%= best_in_place resource, :uri, :type => :input, :path => [collection, qr, resource] %></td>
-              <td><%= best_in_place resource, :profile_id, :type => :select, :path => [collection, qr, resource], :collection => ([["", "Uncategorized"]
-              ] + collection.profiles.collect{|f| [f.id, f.name]}) %></td>
-              <td width="20px">
-                <%= link_to qr_resource_path(resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                  <i class="icon-remove"></i>
-                <% end %>
-              </td>
-            </tr>
+  <div class="tab-pane active" id="qrs">
+
+    <% if collection.qrs.size == 0 %>
+    <h2>You have no QRs. Please, add one.</h>
+      <% end %>
+      <% collection.qrs.each do |qr| %>
+      <div class="well">
+        <div class="header">
+         <div class="pull-right">
+          <div class="pull-left">
+           <%= link_to url_for(:action => 'download', :controller => :qrs, :id => qr.id) , class: "pull-left " do%><i class="icon-download"></i>Download QR image<% end %><br>
+           <%= link_to [collection, qr], method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-left " do%><i class="icon-remove-sign"></i>Remove QR<% end %><br>
+         </div>
+
+
+         <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%></div>
+         <div><%= best_in_place qr, :qr_name, :type => :input, :classes => :qrtitle, :path => [collection, qr] %>
+         </div>
+       </div>
+       <table class="table table-condensed">
+        <tr>
+          <th>Resource Name</th>
+          <th>URL</th>
+          <th>Profile</th>
+          <th></th>
+        </tr>
+        <% qr.resources.each do |resource| %>
+        <tr>
+          <td><%= best_in_place resource, :name, :type => :input, :path => [collection, qr, resource] %></td>
+          <td><%= best_in_place resource, :uri, :type => :input, :path => [collection, qr, resource] %></td>
+          <td><%= best_in_place resource, :profile_id, :type => :select, :path => [collection, qr, resource], :collection => ([["", "Uncategorized"]
+          ] + collection.profiles.collect{|f| [f.id, f.name]}) %></td>
+          <td width="20px">
+            <%= link_to collection_qr_resource_path(collection, resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-primary btn" do %>
+            <i class="icon-remove icon-white"></i>
             <% end %>
-            <tr>
-            <%= form_for([collection, qr, Resource.new], :html => { :class => 'form' }) do |f| %>
+          </td>
+        </tr>
+        <% end %>
+        <tr>
+          <%= form_for([collection, qr, Resource.new], :html => { :class => 'form' }) do |f| %>
 
-		        <td><%= f.text_field :name, placeholder:'The name of your resource'%></td>
-		        <td><%= f.text_field :uri, placeholder:'URL' %></td>
-		        <td><%= f.collection_select :profile_id, collection.profiles, :id, :name, :include_blank => 'Uncategorized' %></td>
-		        <td><%= f.submit "Submit", class:'btn'%></td>
-		 	 <% end %>
-			</tr>
-          </table>
-          <%= link_to new_qr_resource_path(qr.id), class: "btn" do %>
-                  <i class="icon-plus-sign" align="right"></i> Add a new resource
-           <% end %>
-	</div>
-<% end %>
+          <td><%= f.text_field :name, placeholder:'The name of your resource'%></td>
+          <td><%= f.text_field :uri, placeholder:'URL' %></td>
+          <td><%= f.collection_select :profile_id, collection.profiles, :id, :name, :include_blank => 'Uncategorized' %></td>
+          <td><%= f.submit "Add", class:'btn btn-primary'%></td>
+          <% end %>
+        </tr>
+      </table>
+      <%= link_to new_collection_qr_resource_path(collection, qr.id), class: "btn" do %>
+      <i class="icon-plus-sign" align="right"></i> Add a new resource
+      <% end %>
+    </div>
+    <% end %>
+    <%= form_for([collection, Qr.new], :html => { :class => 'form-inline pull-right' }) do |f| %>
+    <td><%= f.text_field :qr_name, placeholder:'QR name'%></td> 
+    <td><%= f.submit "Add new QR", class:'btn btn-primary'%></td>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="profiles">
+    <table class="table table-condensed">
+      <tr>
+        <th>Profile Name</th>
+        <th>Remove</th>
+      </tr>
+      <% collection.profiles.each do |profile| %>
+      <tr>
+        <td><%= best_in_place profile, :name, :type => :input, :path => [collection, profile] %></td>
+        <td width="20px">
+          <%= link_to collection_profile_path(collection, profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" do %>
+          <i class="icon-remove icon-white"></i>
+          <% end %>
+        </td>
+      </tr>
+
+      <% end %>
+
+
+      <tr>
+        <%= form_for([collection, Profile.new], :html => { :class => 'form' }) do |f| %>
+        <td><%= f.text_field :name, placeholder:'Profile name'%></td>    <%= f.hidden_field :collection_id, :value => collection.id %>
+
+        <td><%= f.submit "Add new profile", class:'btn btn-primary'%></td>
+        <% end %>
+      </tr>
+    </table>
+  </div>
 </div>
-<div class="tab-pane" id="profiles">
-Profiles on this collection:
- <table class="table table-condensed">
-            <tr>
-              <th>Profile Name</th>
-              <th>Remove</th>
-            </tr>
-            <% collection.profiles.each do |profile| %>
-            <tr>
-              <td><%= best_in_place profile, :name, :type => :input, :path => [collection, profile] %></td>
-              <td width="20px">
-                <%= link_to collection_profile_path(collection, profile), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                  <i class="icon-remove"></i>
-                <% end %>
-              </td>
-            </tr>
-
-            <% end %>
 
 
-            <tr>
-                <%= form_for([collection, Profile.new], :html => { :class => 'form' }) do |f| %>
-		        <td><%= f.text_field :name, placeholder:'Profile name'%></td>    <%= f.hidden_field :collection_id, :value => collection.id %>
-
-		        <td><%= f.submit "Submit", class:'btn'%></td>
-		 	 <% end %>
-		 	</tr>
-          </table>
-</div>
-</div>
-<%= link_to 'Remove', collection, method: :delete, data: { confirm: 'Are you sure? This will remove all the QRs inside the collection.' } %>
+<script>
+$('.best_in_place').tooltip({
+  title: "Click to edit!",
+  placement: "right"
+})
+</script>

@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
-    @qrs = current_user.qrs
-    @profiles = current_user.profiles
-    @new_profile = Profile.new
-    @new_profile.user = current_user
-    @collections = Collection.find_all_by_user_id(params[:id])
-    @new_collection = current_user.collections.build
-
+    #@user = User.find(params[:id])
+    #@qrs = current_user.qrs
+    #@profiles = current_user.profiles
+    #@new_profile = Profile.new
+    #@new_profile.user = current_user
+    #@collections = Collection.find_all_by_user_id(params[:id])
+    #@new_collection = current_user.collections.build
+    redirect '/collections'
   end
 
   def new
@@ -45,15 +45,13 @@ class UsersController < ApplicationController
       sign_in @user
       flash[:success] = "Welcome to etiquetAR!"
       #FUNCIONA PERO REDIRECCIONA A USER/show: 
-      redirect_to @user
+      redirect_to '/collections'
     else
       render 'new'
     end
   end
 
-  def download_qr
 
-  end
 
   def qr_resource
 
