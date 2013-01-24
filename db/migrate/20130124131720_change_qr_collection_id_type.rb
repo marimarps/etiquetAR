@@ -8,7 +8,5 @@ class ChangeQrCollectionIdType < ActiveRecord::Migration
   def down
   	add_column :qrs, :collection_id, :string
   	remove_column :qrs, :collection_id
-  end
-end
-
+ end
 end
