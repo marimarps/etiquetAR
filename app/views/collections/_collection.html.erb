@@ -12,7 +12,7 @@
   <div class="tab-pane active" id="qrs">
 
     <% if collection.qrs.size == 0 %>
-    <h2>You have no QRs. Please, add one.</h>
+    You have no tags created yet. Enter a name for your new tag and then click on "Add new QR" to create it:<br>
       <% end %>
       <% collection.qrs.each do |qr| %>
       <div class="well">
@@ -24,8 +24,10 @@
          </div>
 
 
-         <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%></div>
-         <div><%= best_in_place qr, :qr_name, :type => :input, :classes => :qrtitle, :path => [collection, qr] %>
+        </div>
+         <div>
+           <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+           <%= best_in_place qr, :qr_name, :type => :input, :classes => :qrtitle, :path => [collection, qr] %>
          </div>
        </div>
        <table class="table table-condensed">
@@ -58,9 +60,7 @@
           <% end %>
         </tr>
       </table>
-      <%= link_to new_collection_qr_resource_path(collection, qr.id), class: "btn" do %>
-      <i class="icon-plus-sign" align="right"></i> Add a new resource
-      <% end %>
+
     </div>
     <% end %>
     <%= form_for([collection, Qr.new], :html => { :class => 'form-inline pull-right' }) do |f| %>

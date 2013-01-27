@@ -11,14 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124131720) do
+ActiveRecord::Schema.define(:version => 20130124153927) do
 
   create_table "collections", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "user_id"
+    t.integer  "user_id"
   end
+
+  add_index "collections", ["user_id"], :name => "index_collections_on_user_id"
 
   create_table "collections_qrs", :id => false, :force => true do |t|
     t.integer "qr_id",         :null => false
@@ -56,13 +58,15 @@ ActiveRecord::Schema.define(:version => 20130124131720) do
 
   create_table "qrs", :force => true do |t|
     t.string   "default_resource"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "user_id"
-    t.integer  "collection_id",    :limit => 255
     t.string   "qr_name"
     t.integer  "view_counter"
+    t.integer  "collection_id"
   end
+
+  add_index "qrs", ["collection_id"], :name => "index_qrs_on_collection_id"
 
   create_table "resources", :force => true do |t|
     t.string   "name"

@@ -1,3 +1,25 @@
+<div class="span3">
+	<div>
+<span class="badge badge-inverse" style="margin-top: 15px">TIP:</span> Almost anything on this page can be edited by just clicking on it.<br>Try it with the title! 
+</div>
+<hr>
+	Your collections:
+        <ul class="nav nav-list">
+        <% current_user.collections.each do |col| %>
+          <li>
+          	<%= link_to col do %><i class="icon-chevron-right"></i> <% if col == @collection %><b><%end%><%= col.name %><% if col == @collection %></b><%end%><%end%>
+          </li>
+        <% end %> 
+         </ul>
+<%= link_to collections_path, class: "btn btn-primary" do %><i class="icon-wrench icon-white"></i> Manage your collections
+            	<%end%>
+</hr>
+
+
+
+</div>
+
+<div class="span9">
 <%= render :partial => "collection", :object => @collection %>
 
-<%= link_to collections_path do %>&larr; Back to collections<% end %>
+</div>

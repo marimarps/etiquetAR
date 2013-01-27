@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     #@new_profile.user = current_user
     #@collections = Collection.find_all_by_user_id(params[:id])
     #@new_collection = current_user.collections.build
-    redirect '/collections'
+    redirect_to '/collections'
   end
 
   def new
@@ -43,9 +43,13 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to etiquetAR!"
+      flash[:success] = "Welcome to etiquetAR! A new collection where to store your tags has been created for you."
+
+      coll = @user.collections.new
+      coll.name = "My QRs"
+      coll.save
       #FUNCIONA PERO REDIRECCIONA A USER/show: 
-      redirect_to '/collections'
+      redirect_to coll
     else
       render 'new'
     end
