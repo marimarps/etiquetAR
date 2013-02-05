@@ -1,6 +1,4 @@
 .map_container {
-  margin-left:10px;
-  margin-bottom:10px;
   padding: 6px;
   border-width: 1px;
   border-style: solid;
@@ -8,10 +6,17 @@
   -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
   -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
   box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
+  width: 800px;
 }
 
 .gmaps4rails_map {
-  height: 140px;
+  width: 800px;
+  height: 400px;
+}
+
+.gmaps4rails_map img {
+max-width: none;
+vertical-align: baseline;
 }
 
 .bing_map {

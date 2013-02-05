@@ -22,8 +22,6 @@
            <%= link_to url_for(:action => 'download', :controller => :qrs, :id => qr.id) , class: "pull-left " do%><i class="icon-download"></i>Download QR image<% end %><br>
            <%= link_to [collection, qr], method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-left " do%><i class="icon-remove-sign"></i>Remove QR<% end %><br>
          </div>
-
-
         </div>
          <div>
            <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%>
@@ -60,6 +58,20 @@
           <% end %>
         </tr>
       </table>
+
+
+<%=
+maps = qr.localizations.all.to_gmaps4rails do |user, marker|
+  marker.infowindow render :partial => "place", :locals => {:place => user, :collection => collection, :qr => qr}
+end
+
+gmaps4rails(maps) 
+%>
+ <%= form_for([collection, qr, Localization.new], :html => { :class => 'form' }) do |f| %>
+
+          <td><%= f.text_field :address, placeholder:'Place address'%></td>
+          <td><%= f.submit "Add", class:'btn btn-primary'%></td>
+          <% end %>
 
     </div>
     <% end %>
@@ -104,4 +116,5 @@ $('.best_in_place').tooltip({
   title: "Click to edit!",
   placement: "right"
 })
+
 </script>

@@ -1,0 +1,4 @@
+<p><%= place.address %></p>
+<%= link_to collection_qr_localization_path(collection, qr, place), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" do %>
+          <i class="icon-remove icon-white"></i>Remove
+<% end %>

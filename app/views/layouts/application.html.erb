@@ -3,7 +3,14 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag    "application", media: "all" %>
+ <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+ <!--[if lte IE 8]>
+     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+ <![endif]-->
+
     <%= javascript_include_tag "application" %>
+     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>    
   </head>

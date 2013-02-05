@@ -5,6 +5,7 @@ EtiquetAR::Application.routes.draw do
     resources :profiles
     resources :qrs do
       resources :resources #, :only=>[:new, :create]
+      resources :localizations
     end
   end
 

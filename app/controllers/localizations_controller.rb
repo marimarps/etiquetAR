@@ -40,14 +40,16 @@ class LocalizationsController < ApplicationController
   # POST /localizations
   # POST /localizations.json
   def create
-    @localization = Localization.new(params[:localization])
+    @collection = Collection.find(params[:collection_id])
+    @qr = @collection.qrs.find(params[:qr_id])
+    @localization = @qr.localizations.build(params[:localization])
 
     respond_to do |format|
       if @localization.save
-        format.html { redirect_to @localization, notice: 'Localization was successfully created.' }
+        format.html { redirect_to :back, notice: 'Localization was successfully created.' }
         format.json { render json: @localization, status: :created, location: @localization }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to :back }
         format.json { render json: @localization.errors, status: :unprocessable_entity }
       end
     end
@@ -63,7 +65,7 @@ class LocalizationsController < ApplicationController
         format.html { redirect_to @localization, notice: 'Localization was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { redirect_to :back }
         format.json { render json: @localization.errors, status: :unprocessable_entity }
       end
     end
@@ -76,7 +78,7 @@ class LocalizationsController < ApplicationController
     @localization.destroy
 
     respond_to do |format|
-      format.html { redirect_to localizations_url }
+      format.html { redirect_to :back}
       format.json { head :no_content }
     end
   end

@@ -3,6 +3,9 @@ class Localization < ActiveRecord::Base
 
   acts_as_gmappable :process_geocoding => true
   after_save :update_gmap
+  
+  geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude
 
   attr_accessible :address, :gmaps, :latitude, :longitude, :qr_id
   belongs_to :qr 
@@ -13,7 +16,7 @@ class Localization < ActiveRecord::Base
   end
 
   def gmaps4rails_infowindow 
-    "<p>  #{address} </p>" 
+    "<p> <b>#{address}</b> </p>" 
   end
 
   def update_gmap
