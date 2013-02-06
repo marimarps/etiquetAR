@@ -20,9 +20,9 @@ class Localization < ActiveRecord::Base
   end
 
   def update_gmap
-    if self.gmaps==true
-      self.update_attributes({:gmaps => false})
-    end
+  #  if self.gmaps==true
+  #    self.update_attributes({:gmaps => false})
+  #  end
   end
 
 end

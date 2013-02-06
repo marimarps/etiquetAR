@@ -59,20 +59,22 @@
         </tr>
       </table>
 
-
 <%=
 maps = qr.localizations.all.to_gmaps4rails do |user, marker|
   marker.infowindow render :partial => "place", :locals => {:place => user, :collection => collection, :qr => qr}
 end
 
-gmaps4rails(maps) 
+gmaps(:markers => {:data => maps}, :map_options => {auto_adjust: true, :id => "map"+qr.id.to_s})
 %>
- <%= form_for([collection, qr, Localization.new], :html => { :class => 'form' }) do |f| %>
+ <%= form_for([collection, qr, Localization.new], :html => { :class => 'form', "data-map" => "map"+qr.id.to_s }) do |f| %>
+  <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
+  <%= f.hidden_field :address %>
+ <% end %>
+          <td><%= text_field_tag :address, nil, placeholder:'Place address', "data-map" => "map"+qr.id.to_s%></td>
+          <td><%= button_tag "Search", class:'btn btn-primary btn-search-map', "data-map" => "map"+qr.id.to_s %></td>
 
-          <td><%= f.text_field :address, placeholder:'Place address'%></td>
-          <td><%= f.submit "Add", class:'btn btn-primary'%></td>
-          <% end %>
-
+</div>
     </div>
     <% end %>
     <%= form_for([collection, Qr.new], :html => { :class => 'form-inline pull-right' }) do |f| %>
@@ -112,9 +114,53 @@ gmaps4rails(maps)
 
 
 <script>
+
 $('.best_in_place').tooltip({
   title: "Click to edit!",
   placement: "right"
 })
 
+$('.btn-search-map').on("click", function() {
+  console.log("lol!");
+  mapname = $(this).data('map');
+  gmap = Gmaps[mapname];
+  search = $('input[data-map='+mapname+']').val();
+  console.log(search);
+
+  document.geocoder.geocode({'address': search},
+    function(results, status) {
+      if(status == google.maps.GeocoderStatus.OK) {
+        gmap.map.fitBounds(results[0].geometry.viewport);
+        gmap.resultdata = results[0];
+        gmap.searchresult = new google.maps.Marker({
+          position: results[0].geometry.location,
+          map: gmap.map
+        });
+
+        var text = results[0].formatted_address;
+        var button = $('<button class="btn btn-primary" data-map="'+mapname+'">Add this place</button>');
+
+        button.on('click', function() {
+          var form = $('form[data-map='+mapname+']');
+          console.log(form);
+          form.children('#localization_latitude').val(results[0].geometry.location.lat());
+          form.children('#localization_longitude').val(results[0].geometry.location.lng());
+          form.children('#localization_address').val(results[0].formatted_address);
+          form.submit();
+        })
+        gmap.searchresultinfo = new google.maps.InfoWindow({content: button[0]});
+        google.maps.event.addListener(gmap.searchresult, 'click', function() {
+          gmap.searchresultinfo.open(gmap.map,gmap.searchresult);
+        });  
+
+        gmap.searchresultinfo.open(gmap.map,gmap.searchresult);       
+      }else{
+        alert("Place not found: "+status);
+      }
+    })
+})
+
+$(function() {
+  document.geocoder = new google.maps.Geocoder();
+})
 </script>
