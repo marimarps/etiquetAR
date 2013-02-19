@@ -1,4 +1,4 @@
-<%= form_for([@qr, @resource],:html => { :class => 'form' }) do |f| %>
+<%= form_for([@collection, @qr, @resource],:html => { :class => 'form' }) do |f| %>
   <% if @resource.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
@@ -11,31 +11,83 @@
     </div>
   <% end %>
 
-
-
+<%= f.hidden_field :name %>
+<%= f.hidden_field :profile %>
+<span>
+<label for="resource_content_type">Content type:
+<%= f.select :content_type, {"URL" => "url", "Text" => "text", "Image" => :image, "Video" => :video} %></label> 
+<%= hidden_field_tag :orig_content_type, "lol" %>
+</span>
+<!--
     <div class="control-group">
-      <%= f.label 'Resource Name:', class:"control-label" %><br />
-        <div class="controls">
+      <%= f.label :name, class:"control-label" %>
           <%= f.text_field :name, placeholder:'The name of your resource'%>
-        </div>
+      <%= f.label :profile %>
+          <%= f.collection_select :profile_id, @collection.profiles, :id, :name, :include_blank => 'Uncategorized' %>
+
     </div>
 
 
     <div class="control-group ">
-      <%= f.label 'Resource Content:', class:"control-label" %><br />
-      <div class="controls">
-        <%= f.text_field :uri, placeholder:'Insert an URL (e.g. http://www.google.com) ATENTION: Add the http://' %>
-      </div>
+      <%= f.label :content, class:"control-label" %>
+        <%= f.text_field :uri, placeholder:'Insert an URL (e.g. http://www.google.com)' %>
     </div>
       <div class="field">
-    <%= f.label :profile %><br />
-    <%= f.collection_select :profile_id, current_user.profiles, :id, :name, :include_blank => 'Uncategorized' %>
-
+ 
 
   </div>
+ -->
+ <div class="well"><fieldset>
+ <% if @resource.content_type == "url" %>
+  <label>URL to go to:</label> <%= f.text_field :uri, :class => "input-block-level" %>
+ <% end %>
 
-    <div class="actions">
-      <%= f.submit "Submit", class:'btn'%>
-    </div>
+
+<% if @resource.content_type == "video" %>
+  <label>YouTube URL:</label> <%= f.text_field :uri, :class => "input-block-level" %>
+ <% end %>
+<% if @resource.content_type == "video" %>
+  <label>Image URL:</label> <%= f.text_field :uri, :class => "input-block-level" %>
+ <% end %>
+
+ <% if @resource.content_type == "text" %>
+ Text/HTML to show:
+  <%= f.text_area :uri, class: 'editable input-block-level', placeholder: "Text goes here" %>
+ <% end %>
+ </fieldset> 
+  
+</div>
+      <%= f.submit "Save", class:'btn'%>
+
   <% end %>
-</form>
+
+
+</div>
+
+</form>                            
+ <script type="text/javascript" src="http://cdn.aloha-editor.org/latest/lib/require.js"></script>
+
+<script src="http://cdn.aloha-editor.org/latest/lib/aloha.js"
+                                   data-aloha-plugins="common/ui,
+                                                        common/format,
+                                                        common/list,
+                                                        common/link,
+                                                        common/highlighteditables">
+              </script>
+              <!-- load the Aloha Editor CSS styles -->
+              <link href="http://cdn.aloha-editor.org/latest/css/aloha.css" rel="stylesheet" type="text/css" />
+ <script>Aloha.ready( function() {
+                            var $ = Aloha.jQuery;
+                            $('.editable').aloha();
+                     });
+
+ $('#resource_content_type').on("change", function(){
+  if(confirm("Editing the content type will remove the current contents of the resource. Are you sure you want to continue?")) {
+    $('#resource_uri').val("");
+    $('form').submit();
+  }else{
+    $('#resource_content_type').val($('#orig_content_type').val());
+  }
+
+ });
+  </script>

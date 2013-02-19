@@ -14,7 +14,7 @@ require 'open-uri'
 gem 'rqrcode'
 require 'base64'
 gem "best_in_place"
-
+gem "mercury-rails"
 
 group :development do
   gem 'rspec-rails', '2.10.0'

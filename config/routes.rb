@@ -1,4 +1,5 @@
 EtiquetAR::Application.routes.draw do
+
   resources :localizations
 
   resources :collections do

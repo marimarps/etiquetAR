@@ -38,7 +38,8 @@ class ResourcesController < ApplicationController
 
   # GET /resources/1/edit
   def edit
-    @qr = current_user.qrs.find(params[:qr_id])
+    @collection = current_user.collections.find(params[:collection_id])
+    @qr = @collection.qrs.find(params[:qr_id])
     @resource = Resource.find(params[:id])
   end
 
@@ -47,20 +48,25 @@ class ResourcesController < ApplicationController
   def create
     #@qr_user=current_user.qrs.build(params[:qr])
     #@qr=Qr.find(params[:id])
-
     @qr=current_user.qrs.find(params[:qr_id])
+    @collection = @qr.collection
     @resource = @qr.resources.build(params[:resource])
+
+    if @resource[:uri] == nil or @resource[:uri] == ''
+      return render action: "new"
+    else
     #example, what we have done in Qrs
     #@qr = Qr.new(params[:qr])
     #@qr=current_user.qrs.build(params[:qr])
 
-    respond_to do |format|
-      if @resource.save
-        format.html { redirect_to  @qr.collection, notice: 'Resource was successfully created.' }
-        format.json { render json: @resource, status: :created, location: @resource }
-      else
-        format.html { redirect_to  @qr.collection, notice: 'Oooops! Something happened. Resource not saved.' }
-        format.json { render json: @resource.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @resource.save
+          format.html { redirect_to  @qr.collection, notice: 'Resource was successfully created.' }
+          format.json { render json: @resource, status: :created, location: @resource }
+        else
+          format.html { redirect_to  @qr.collection, notice: 'Oooops! Something happened. Resource not saved.' }
+          format.json { render json: @resource.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -72,7 +78,7 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
 
     respond_to do |format|
-      if @resource.update_attributes(params[:resource])
+      if @resource.update_attributes(params[:resource]) and @resource[:uri] != ''
         format.html { redirect_to  @qr.collection, notice: 'Resource was successfully updated.' }
         format.json { head :no_content }
       else

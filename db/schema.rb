@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124153927) do
+ActiveRecord::Schema.define(:version => 20130216161229) do
 
   create_table "collections", :force => true do |t|
     t.string   "name"
@@ -58,15 +58,13 @@ ActiveRecord::Schema.define(:version => 20130124153927) do
 
   create_table "qrs", :force => true do |t|
     t.string   "default_resource"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "user_id"
+    t.integer  "collection_id",    :limit => 255
     t.string   "qr_name"
     t.integer  "view_counter"
-    t.integer  "collection_id"
   end
-
-  add_index "qrs", ["collection_id"], :name => "index_qrs_on_collection_id"
 
   create_table "resources", :force => true do |t|
     t.string   "name"
@@ -77,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20130124153927) do
     t.integer  "qr_id"
     t.integer  "profile_id"
     t.integer  "view_counter"
+    t.string   "content_type"
   end
 
   create_table "users", :force => true do |t|

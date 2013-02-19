@@ -31,16 +31,19 @@
        <table class="table table-condensed">
         <tr>
           <th>Resource Name</th>
-          <th>URL</th>
           <th>Profile</th>
+          <th>Content</th>
+
           <th></th>
         </tr>
         <% qr.resources.each do |resource| %>
         <tr>
           <td><%= best_in_place resource, :name, :type => :input, :path => [collection, qr, resource] %></td>
-          <td><%= best_in_place resource, :uri, :type => :input, :path => [collection, qr, resource] %></td>
-          <td><%= best_in_place resource, :profile_id, :type => :select, :path => [collection, qr, resource], :collection => ([["", "Uncategorized"]
-          ] + collection.profiles.collect{|f| [f.id, f.name]}) %></td>
+          <td><%= best_in_place resource, :profile_id, :type => :select, :path => [collection, qr, resource], :collection => ([["", "Uncategorized"]] + collection.profiles.collect{|f| [f.id, f.name]}) %></td>
+          <td><%# best_in_place resource, :uri, :type => :input, :path => [collection, qr, resource] %>
+            <%= ({"URL" => "url", "Text" => "text", "Image" => :image, "Video" => :video}).key(resource.content_type) %> 
+            <%= link_to "(edit)", edit_collection_qr_resource_path(collection, qr, resource) %>
+          </td>
           <td width="20px">
             <%= link_to collection_qr_resource_path(collection, resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-primary btn" do %>
             <i class="icon-remove icon-white"></i>
@@ -52,8 +55,8 @@
           <%= form_for([collection, qr, Resource.new], :html => { :class => 'form' }) do |f| %>
 
           <td><%= f.text_field :name, placeholder:'The name of your resource'%></td>
-          <td><%= f.text_field :uri, placeholder:'URL' %></td>
           <td><%= f.collection_select :profile_id, collection.profiles, :id, :name, :include_blank => 'Uncategorized' %></td>
+          <td><%= f.select :content_type, {"URL" => "url", "Text" => "text", "Image" => :image, "Video" => :video} %></td>
           <td><%= f.submit "Add", class:'btn btn-primary'%></td>
           <% end %>
         </tr>
