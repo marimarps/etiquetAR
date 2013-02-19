@@ -46,7 +46,7 @@
 <% if @resource.content_type == "video" %>
   <label>YouTube URL:</label> <%= f.text_field :uri, :class => "input-block-level" %>
  <% end %>
-<% if @resource.content_type == "video" %>
+<% if @resource.content_type == "image" %>
   <label>Image URL:</label> <%= f.text_field :uri, :class => "input-block-level" %>
  <% end %>
 
@@ -57,7 +57,7 @@
  </fieldset> 
   
 </div>
-      <%= f.submit "Save", class:'btn'%>
+      <%= f.submit "Save", class:'btn btn-primary pull-right'%>
 
   <% end %>
 
