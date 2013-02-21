@@ -47,7 +47,8 @@ class QrsController < ApplicationController
         if @qr.resources.count > 0 #check si existe algun recurso con profile para este qr?
             render
         else
-          redirect_to @qr.resources.first.uri
+          #redirect_to @qr.resources.first.uri
+          redirect_to url_for(action: :go, controller: :resources, res_id: @qr.resources.first.id, qr_id: @qr.id)
         end
     else #no hay recursos
        redirect_to root_path, notice: 'Ooops! No resources asociated to this TAG'
@@ -153,6 +154,7 @@ class QrsController < ApplicationController
         format.json { head :no_content }
     end
   end
+
 
 
 end

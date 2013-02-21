@@ -25,7 +25,9 @@ EtiquetAR::Application.routes.draw do
   match '/qrs/index', to: 'qrs#new'
   match '/qrs/:id/download', to: 'qrs#download'  
   match '/go/:id', to: 'qrs#go'
-
+  match '/go/:qr_id/:res_id', to: 'resources#go'
+  match '/comments/:id', to: 'resources#comments'
+  match '/comments/:id/post', to: 'resources#post_comment' 
   ####USERS ROUTES
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'

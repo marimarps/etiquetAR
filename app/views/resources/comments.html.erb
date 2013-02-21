@@ -1,0 +1,29 @@
+<div class="container">
+<% if @comments.empty? %>
+There are no comments yet. Leave your comment below!
+<% else %> 
+<% @comments.reverse_each do |c| %>
+<div>
+<%= c.name %>: <%= c.comment %>
+</div>
+<% end %>
+<% end %>
+
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%= form_for @comment, url: {action: :post_comment, controller: :resources} do |f| %>
+<fieldset>
+<%= f.text_field :name, :placeholder => "Your name" %>
+<%= f.text_area :comment, :placeholder => "Your comment" %>
+<%= f.submit "Send" %>
+</fieldset>
+<% end %>
+</div>

@@ -99,4 +99,28 @@ class ResourcesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def comments
+    @res = Resource.find(params[:id])
+    @comments = @res.comments
+    @comment = Comment.new
+    render
+  end
+
+  def post_comment
+    @resource = Resource.find(params[:id])
+    @comments = @resource.comments
+    @comment = @resource.comments.build(params[:comment])
+    if @comment.save
+      redirect_to url_for(controller: :resources, action: :comments, id: @comment.resource_id)
+    else
+      render :comments
+    end
+  end
+
+  def go
+    @qr = Qr.find(params[:qr_id])
+    @resource = @qr.resources.find(params[:res_id])
+    @comments = @resource.comments
+  end
 end
