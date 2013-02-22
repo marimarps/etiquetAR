@@ -1,11 +1,17 @@
 <div class="container">
+<%= link_to "Back", '/go/'+@res.qr.id.to_s+'/'+@res.id.to_s, :class => 'btn btn-primary' %>
 <% if @comments.empty? %>
 There are no comments yet. Leave your comment below!
 <% else %> 
 <% @comments.reverse_each do |c| %>
-<div>
-<%= c.name %>: <%= c.comment %>
+
+<% if current_user == @res.qr.collection.user or c.is_visible? %>
+<div class="well">
+<b><%= c.name %>:</b><br>
+<%= c.comment %>
+<% if current_user == @res.qr.collection.user %><a class="btn" href="/comments/visible/<%= c.id %>"><%= c.is_visible? ? "Hide" : "Show" %> comment</a><%end%> 
 </div>
+<% end %>
 <% end %>
 <% end %>
 
@@ -21,8 +27,8 @@ There are no comments yet. Leave your comment below!
   <% end %>
 <%= form_for @comment, url: {action: :post_comment, controller: :resources} do |f| %>
 <fieldset>
-<%= f.text_field :name, :placeholder => "Your name" %>
-<%= f.text_area :comment, :placeholder => "Your comment" %>
+<%= f.text_field :name, :placeholder => "Your name", :style => 'width: 100%' %><br>
+<%= f.text_area :comment, :placeholder => "Your comment", :size => "10", :style => 'width: 100%' %><br>
 <%= f.submit "Send" %>
 </fieldset>
 <% end %>

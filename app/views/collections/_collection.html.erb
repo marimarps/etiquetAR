@@ -27,7 +27,7 @@
          </div>
         </div>
          <div>
-           <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%>
+           <a href="<%= url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false) %>"><%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%></a>
            <%= best_in_place qr, :qr_name, :type => :input, :classes => :qrtitle, :path => [collection, qr] %>
          </div>
        </div>

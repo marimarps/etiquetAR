@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219151641) do
+ActiveRecord::Schema.define(:version => 20130222141122) do
 
   create_table "collections", :force => true do |t|
     t.string   "name"
@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(:version => 20130219151641) do
     t.integer  "resource_id"
     t.string   "name"
     t.text     "comment"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "visible",     :default => true
   end
 
   create_table "localizations", :force => true do |t|

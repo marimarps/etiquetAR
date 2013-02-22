@@ -28,6 +28,8 @@ EtiquetAR::Application.routes.draw do
   match '/go/:qr_id/:res_id', to: 'resources#go'
   match '/comments/:id', to: 'resources#comments'
   match '/comments/:id/post', to: 'resources#post_comment' 
+  match '/comments/visible/:id', to: 'resources#comment_toggle_visibility'
+
   ####USERS ROUTES
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
