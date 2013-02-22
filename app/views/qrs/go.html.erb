@@ -3,7 +3,7 @@
 <!-- Visualización mejor -->
 <div class=" well span5 offset3" align="center">
 
-		<h1>What do you know about <%= @qr.qr_name%>?</h1>
+		<h1>¿Qué sabes sobre <%= @qr.qr_name%>?</h1>
 		<ul class="unstyled"><% @qr.resources.each do |res| %>
       		<% if res.profile != nil %>
       			<li><h2><%= link_to res.profile.name, {action: :go, controller: :resources, res_id: res.id, qr_id: @qr.id} %></h2></li>
