@@ -3,15 +3,15 @@
     
     <a href='<%= url_for action: :comments, controller: :resources, id: @resource.id %>' class="btn btn-primary pull-right">
 <%= @comments.size %> comments</a>
-<% if @resource.type == 'url' or @resource.type == 'video' %>
+<% if @resource.content_type == 'url' or @resource.content_type == 'video' %>
 <iframe width=100% height=100% src="<%= @resource.uri %>"></iframe>
 <% end %>
 
-<% if @resource.type == 'img' %>
+<% if @resource.content_type == 'img' %>
 <img src="<%= @resource.uri %>"/>
 <% end %>
 
-<% if @resource.type == 'text' %>
+<% if @resource.content_type == 'text' %>
 <div class="well">
     <%= @resource.uri %>
 </div>
