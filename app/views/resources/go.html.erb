@@ -15,7 +15,7 @@
 
 <% if @resource.content_type == 'text' %>
 <div class="well">
-    <%= @resource.uri %>
+    <%=raw @resource.uri %>
 </div>
 <% end %>
 </div>
