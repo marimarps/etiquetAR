@@ -106,12 +106,12 @@ class ResourcesController < ApplicationController
   end
 
   def post_comment
-    @resource = Resource.find(params[:id])
-    @comments = @resource.comments
-    @comment = @resource.comments.build(params[:comment])
+    @res = Resource.find(params[:id])
+
     if @comment.save
       redirect_to url_for(controller: :resources, action: :comments, id: @comment.resource_id)
     else
+      @comments = @res.comments
       render :comments
     end
   end
@@ -119,7 +119,7 @@ class ResourcesController < ApplicationController
   def comment_toggle_visibility
     @comment = Comment.find(params[:id])
     if @comment.resource.qr.collection.user == current_user
-      p "--------------------1----------------"
+      #p "--------------------1----------------"
       if @comment.is_visible?
         @comment.visible = false
       else
