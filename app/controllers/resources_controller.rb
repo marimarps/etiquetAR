@@ -93,7 +93,7 @@ class ResourcesController < ApplicationController
     @resource.destroy
 
     respond_to do |format|
-      format.html { redirect_to @qr.collection, notice: 'Resource successfully destroyed.' }
+      format.html { redirect_to @resource.qr.collection, notice: 'Resource successfully destroyed.' }
       format.json { head :no_content }
     end
   end
