@@ -8,7 +8,9 @@
 <% end %>
 
 <% if @resource.content_type == 'image' %>
+<div class="well">
 <img src="<%= @resource.uri %>"/>
+</div>
 <% end %>
 
 <% if @resource.content_type == 'text' %>
@@ -17,3 +19,17 @@
 </div>
 <% end %>
 </div>
+
+<script>
+function iframeHeight() {
+    var newHeight = $j(window).height();
+    var buffer = 100;     // space required for any other elements on the page 
+    var newIframeHeight = newHeight - buffer;
+    $j('iframe').css('height',newIframeHeight);    //this will aply to all iframes on the page, so you may want to make your jquery selector more specific.
+}
+
+$(function() {
+    window.onresize = iframeHeight;
+    iframeHeight();
+}
+</script>
