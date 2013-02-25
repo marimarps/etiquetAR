@@ -107,10 +107,11 @@ class ResourcesController < ApplicationController
 
   def post_comment
     @res = Resource.find(params[:id])
-
+    @comment = @res.comments.build(params[:comment])
     if @comment.save
       redirect_to url_for(controller: :resources, action: :comments, id: @comment.resource_id)
     else
+      @res = Resource.find(params[:id])
       @comments = @res.comments
       render :comments
     end
