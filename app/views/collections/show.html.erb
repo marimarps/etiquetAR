@@ -1,19 +1,63 @@
-<div class="row">
-<div class="span3">
-	<div>
-<span class="badge badge-inverse" style="margin-top: 15px">TIP:</span> Almost anything on this page can be edited by just clicking on it.<br>Try it with the title! 
+<div class="container">
+  
+  <div class="row">
+    <div class="page-header">
+      <%= form_for([@collection, Qr.new], :html => { :class => 'form-inline pull-right' }) do |f| %>
+      <%= f.text_field :qr_name, placeholder:'QR name'%></td> 
+      <%= f.button "Add a new QR", type: "submit", class:'btn btn-primary' do %><%end%>
+      <% end %>
+      <h1>Collection: <%= @collection.name %></h1>
+    </div>
+  </div>
+
+  <div class="row">
+    
+   <% @collection.qrs.each do |qr| %>
+   <div class="span2 well">
+    <div class="block">
+      <h2><%= qr.qr_name %></h2>
+      <%= pluralize(qr.resources.count, "resources") %>
+      <ul class="nav nav-list">
+        <li>
+         <%= link_to edit_collection_qr_url(qr.collection, qr), :class => [:qr_edit] do %>
+         <i class="icon-chevron-right"></i></i>Edit QR
+         <% end %>
+       </li>
+
+       <li> <%= link_to url_for(:action => 'download', :controller => :qrs, :id => qr.id) , class: "pull-left " do%><i class="icon-download"></i>Download QR image<% end %></li>
+       <li>
+         <%= link_to [@collection, qr], method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-left " do%><i class="icon-remove-sign"></i>Remove QR<% end %><br></li>
+       </ul>
+     </div>
+     <div class="qrdetail" style="display: none">
+      <%# render :partial => "qrs/qr", :object => qr %>
+    </div>
+  </div>
+
+
+  <% end %>
 </div>
-<hr>
-	Your collections:
-        <ul class="nav nav-list">
-        <% current_user.collections.each do |col| %>
-          <li>
-          	<%= link_to col do %><i class="icon-chevron-right"></i> <% if col == @collection %><b><%end%><%= col.name %><% if col == @collection %></b><%end%><%end%>
-          </li>
-        <% end %> 
-         </ul>
-<%= link_to collections_path, class: "btn btn-primary" do %><i class="icon-wrench icon-white"></i> Manage your collections
-            	<%end%>
+</div>
+
+
+<hr><hr>
+<div class="row">
+  <div class="span3">
+   <div>
+    <span class="badge badge-inverse" style="margin-top: 15px">TIP:</span> Almost anything on this page can be edited by just clicking on it.<br>Try it with the title! 
+  </div>
+  <hr>
+  Your collections:
+  <ul class="nav nav-list">
+    <% current_user.collections.each do |col| %>
+    <li>
+     <%= link_to col do %><i class="icon-chevron-right"></i> <% if col == @collection %><b><%end%><%= col.name %><% if col == @collection %></b><%end%><%end%>
+   </li>
+   <% end %> 
+ </ul>
+ <%= link_to collections_path, class: "btn btn-primary" do %><i class="icon-wrench icon-white"></i> Manage your collections
+ <%end%>
+
 </hr>
 
 
@@ -21,8 +65,22 @@
 </div>
 
 <div class="span9">
-<%= render :partial => "collection", :object => @collection %>
+  <%= render :partial => "collection", :object => @collection %>
 
 </div>
 
 </div>
+
+<script>
+/*$(function() {
+  $('.qr_edit').on("click", function() {
+    qr = $(this).closest(".well");
+    block = qr.find(".block");
+    detail = qr.find(".qrdetail");
+    qr.removeClass("span2").addClass("span12");
+    block.hide();
+    detail.show();
+    return false;
+  })
+});
+</script>
