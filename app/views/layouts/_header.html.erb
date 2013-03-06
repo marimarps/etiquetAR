@@ -3,8 +3,10 @@
     <div class="container">
       <%= link_to "etiquetAR", root_path, class: "brand blogo" %>
       <ul class="nav">
-                    <li><%= link_to "Collections", (current_user.collections.size == 1 ? current_user.collections.first : collections_path) %></li>
+                  <% if signed_in? %>
 
+                    <li><%= link_to "Collections", (current_user.collections.size == 1 ? current_user.collections.first : collections_path) %></li>
+                <% end %>
       </ul>
       <nav>
         <ul class="nav pull-right">
