@@ -12,32 +12,20 @@
 <% if @collections.size == 0 %>
 <h2>You have no collections. Add your first collection by using the label on the top!</h2>
 <% end %>
-<div class="row">
 
-    <div class="span12">
-        <div class="row">
-            <% @collections.each do |coll| %>
-                <div class="span2 well">
-                    <div>
-                    <h2><%= coll.name %></h2>
-                    <%= pluralize(coll.qrs.count, "QR") %>, <%= pluralize(coll.profiles.count, "profile") %>
-                    <ul class="nav nav-list">
-                    <li>
-                        <%= link_to collection_path(coll), :class => [] do %>
-                            <i class="icon-chevron-right"></i></i>Edit QRs
-                        <% end %>
-                    </li>
-                    <li>
-                        <%= link_to coll, method: :delete, data: { confirm: 'Are you sure? This will remove all the QRs inside the collection.' } do %>
-                            <i class="icon-chevron-right"></i>Remove
-                        <% end %>
-                    </li>
-                    </ul>
-                    </div>
-                </div>
-            <% end %>
-        </div>
 
-    </div>
+
+<% @collections.each do |collection| %>
+ 
+<div class="well container">
+  <div class="pull-left"><h3><%=collection.name %></h3><%= pluralize(collection.qrs.count, "QR") %>, <%= pluralize(collection.qrs.count, "profile") %></div>
+  <div class="pull-right">
+    <%= link_to collection_path(collection), :class => ['btn-primary btn btn-large'] do %><i class="icon-edit icon-white"></i>Edit<% end %>
+    <%= link_to collection, method: :delete, :class => ['btn-primary btn btn-large'], data: { confirm: 'Are you sure? This will remove all the QRs inside the collection.' } do %><i class="icon-white icon-remove-sign"></i>Remove<% end %>
+ 
+  </div></div>
+<% end %>
+
+
 </div>
 </div>

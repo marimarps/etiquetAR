@@ -13,7 +13,7 @@
 <% end %>
   <div class="row">
    <% @collection.qrs.each do |qr| %>
-   <div class="span2 well">
+   <div class="span3 well">
     <div class="block">
       <h2><%= qr.qr_name %></h2>
       <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120", :style => "display: block")%>
