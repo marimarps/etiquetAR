@@ -25,9 +25,9 @@
          <% end %>
        </li>
 
-       <li> <%= link_to url_for(:action => 'download', :controller => :qrs, :id => qr.id) , class: "pull-left " do%><i class="icon-download"></i>Download QR image<% end %></li>
+       <li> <%= link_to url_for(:action => 'download', :controller => :qrs, :id => qr.id) do%><i class="icon-download"></i>Download QR image<% end %></li>
        <li>
-         <%= link_to [@collection, qr], method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-left " do%><i class="icon-remove-sign"></i>Remove QR<% end %><br></li>
+         <%= link_to [@collection, qr], method: :delete, data: { confirm: 'Are you sure?' } do%><i class="icon-remove-sign"></i>Remove QR<% end %><br></li>
        </ul>
      </div>
      <div class="qrdetail" style="display: none">
@@ -62,11 +62,8 @@ $(document).ready(function() {
 $('[data-toggle="ajaxmodal"]').click(function(e) {
   e.preventDefault();
   var url = $(this).attr('href')+"?ajax=1";
-  if (url.indexOf('#') == 0) {
-    $(url).modal('open');
-  } else {
     $.get(url, function(data) {
-      $('<div class="modal hide fade">' + data + '</div>').modal()
+      modal = $('<div class="modal fade">' + data + '</div>').filter('.modal').modal()
       .css({
         'width': function () { 
           return ($(document).width() * .9) + 'px';  
@@ -75,6 +72,12 @@ $('[data-toggle="ajaxmodal"]').click(function(e) {
           return -($(this).width() / 2); 
         }
       });
+      bip = modal.find('.best_in_place');
+      bip.tooltip({
+        title: "Click to edit!",
+        placement: "right"
+      });
+
     })/*.success(function() { 
       $('input:text:visible:first').focus(); 
       $('.best_in_place').tooltip({
@@ -82,7 +85,7 @@ $('[data-toggle="ajaxmodal"]').click(function(e) {
         placement: "right"
       })
     });*/
-  }
+  
   return false;
 });
   
