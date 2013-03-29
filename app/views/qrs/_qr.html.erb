@@ -45,7 +45,9 @@
 
 </table>
 
-<%=
+<% if false %>
+<% 
+
 maps = qr.localizations.all.to_gmaps4rails do |user, marker|
   marker.infowindow render :partial => "place", :locals => {:place => user, :collection => collection, :qr => qr}
 end
@@ -59,3 +61,13 @@ gmaps(:markers => {:data => maps}, :map_options => {auto_adjust: true, :id => "m
 <% end %>
 <td><div class="form-inline" style="text-align: right;"><%= text_field_tag :address, nil, placeholder:'Place address', "data-map" => "map"+qr.id.to_s%>
   <%= button_tag "Search", class:'btn btn-primary btn-search-map', "data-map" => "map"+qr.id.to_s %></div></td>
+%>
+<% end %>
+<script>
+$(function() {
+$('.best_in_place').tooltip({
+  title: "Click to edit!",
+  placement: "right"
+})
+})
+</script>

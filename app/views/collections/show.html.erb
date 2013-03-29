@@ -16,10 +16,11 @@
    <div class="span2 well">
     <div class="block">
       <h2><%= qr.qr_name %></h2>
-      <%= pluralize(qr.resources.count, "resources") %>
+      <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120", :style => "display: block")%>
+      <span><%= pluralize(qr.resources.count, "resources") %></span>
       <ul class="nav nav-list">
         <li>
-         <%= link_to edit_collection_qr_url(qr.collection, qr), :class => [:qr_edit] do %>
+         <%= link_to edit_collection_qr_url(qr.collection, qr), :class => [:qr_edit], "data-toggle" => :ajaxmodal do %>
          <i class="icon-chevron-right"></i></i>Edit QR
          <% end %>
        </li>
@@ -40,37 +41,6 @@
 </div>
 
 
-<hr><hr>
-<div class="row">
-  <div class="span3">
-   <div>
-    <span class="badge badge-inverse" style="margin-top: 15px">TIP:</span> Almost anything on this page can be edited by just clicking on it.<br>Try it with the title! 
-  </div>
-  <hr>
-  Your collections:
-  <ul class="nav nav-list">
-    <% current_user.collections.each do |col| %>
-    <li>
-     <%= link_to col do %><i class="icon-chevron-right"></i> <% if col == @collection %><b><%end%><%= col.name %><% if col == @collection %></b><%end%><%end%>
-   </li>
-   <% end %> 
- </ul>
- <%= link_to collections_path, class: "btn btn-primary" do %><i class="icon-wrench icon-white"></i> Manage your collections
- <%end%>
-
-</hr>
-
-
-
-</div>
-
-<div class="span9">
-  <%= render :partial => "collection", :object => @collection %>
-
-</div>
-
-</div>
-
 <script>
 /*$(function() {
   $('.qr_edit').on("click", function() {
@@ -82,5 +52,39 @@
     detail.show();
     return false;
   })
+});
+
+*/
+$(document).ready(function() {
+  
+// Support for AJAX loaded modal window.
+// Focuses on first input textbox after it loads the window.
+$('[data-toggle="ajaxmodal"]').click(function(e) {
+  e.preventDefault();
+  var url = $(this).attr('href')+"?ajax=1";
+  if (url.indexOf('#') == 0) {
+    $(url).modal('open');
+  } else {
+    $.get(url, function(data) {
+      $('<div class="modal hide fade">' + data + '</div>').modal()
+      .css({
+        'width': function () { 
+          return ($(document).width() * .9) + 'px';  
+        },
+        'margin-left': function () { 
+          return -($(this).width() / 2); 
+        }
+      });
+    })/*.success(function() { 
+      $('input:text:visible:first').focus(); 
+      $('.best_in_place').tooltip({
+        title: "Click to edit!",
+        placement: "right"
+      })
+    });*/
+  }
+  return false;
+});
+  
 });
 </script>

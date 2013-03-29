@@ -102,7 +102,7 @@ class QrsController < ApplicationController
   def edit
     @qr = Qr.find(params[:id])
     @collections = Collection.where("user_id = ?", current_user.id)
-      
+    return render :layout => "modal" if params[:ajax] == "1"
   end
 
   # POST /qrs
