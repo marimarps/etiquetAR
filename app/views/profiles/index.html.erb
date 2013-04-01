@@ -1,23 +1,30 @@
-<h1>Listing profiles</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <div class="tab-pane" id="profiles">
+    <table class="table table-condensed">
+      <tr>
+        <th>Profile Name</th>
+        <th>Remove</th>
+      </tr>
 
-  
+      </tr>
 
-<% @profiles.each do |profile| %>
-  <tr>
-    <td><%= link_to 'Show', profile %></td>
-    <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
-    <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+      <% @collection.profiles.each do |profile| %>
+      <tr>
+        <td><%= best_in_place profile, :name, :type => :input, :path => [@collection, profile] %></td>
+        <td width="20px">
+          <%= link_to collection_profile_path(@collection, profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" do %>
+          <i class="icon-remove icon-white"></i>
+          <% end %>
+        </td>
+      </tr>
 
-<br />
+      <% end %>
 
-<%= link_to 'New Profile', new_profile_path %>
+            <tr>
+        <%= form_for([@collection, Profile.new], :html => { :class => 'form' }) do |f| %>
+        <td><%= f.text_field :name, placeholder:'New profile name'%></td>    <%= f.hidden_field :collection_id, :value => @collection.id %>
+
+        <td><%= f.submit "Add new profile", class:'btn btn-primary'%></td>
+        <% end %>
+
+    </table>

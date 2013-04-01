@@ -2,7 +2,9 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
    def index
-     @profiles = Profile.all
+    @collection = current_user.collections.find(params[:collection_id])
+     @profiles = @collection.profiles
+     return render :layout => "modal" if params[:ajax] == "1"
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @profiles }
