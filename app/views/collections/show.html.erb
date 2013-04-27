@@ -18,8 +18,10 @@
    <div class="span3 well">
     <div class="block">
       <h2><%= qr.qr_name %></h2>
-      <%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120", :style => "display: block")%>
-      <span><%= pluralize(qr.resources.count, "resources") %></span>
+      <a href="<%= url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false) %>">
+	<%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120", :style => "display: block")%>
+      </a>
+	<span><%= pluralize(qr.resources.count, "resources") %></span>
       <ul class="nav nav-list">
         <li>
          <%= link_to edit_collection_qr_url(qr.collection, qr), :class => [:qr_edit], "data-toggle" => :ajaxmodal do %>

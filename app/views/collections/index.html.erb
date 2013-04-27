@@ -18,7 +18,7 @@
 <% @collections.each do |collection| %>
  
 <div class="well container">
-  <div class="pull-left"><h3><%=collection.name %></h3><%= pluralize(collection.qrs.count, "QR") %>, <%= pluralize(collection.qrs.count, "profile") %></div>
+  <div class="pull-left"><h3><%= link_to collection_path(collection) do %><%=collection.name %><% end %></h3><%= pluralize(collection.qrs.count, "QR") %>, <%= pluralize(collection.qrs.count, "profile") %></div>
   <div class="pull-right">
     <%= link_to collection_path(collection), :class => ['btn-primary btn btn-large'] do %><i class="icon-edit icon-white"></i>Edit<% end %>
     <%= link_to collection, method: :delete, :class => ['btn-primary btn btn-large'], data: { confirm: 'Are you sure? This will remove all the QRs inside the collection.' } do %><i class="icon-white icon-remove-sign"></i>Remove<% end %>
