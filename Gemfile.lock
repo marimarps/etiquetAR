@@ -34,7 +34,7 @@ GEM
     best_in_place (2.1.0)
       jquery-rails
       rails (~> 3.1)
-    bootstrap-sass (2.3.1.1)
+    bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     bootswatch-rails (0.5.0)
       railties (>= 3.1)
@@ -181,7 +181,7 @@ DEPENDENCIES
   annotate (~> 2.4.1.beta)
   bcrypt-ruby (= 3.0.1)
   best_in_place
-  bootstrap-sass
+  bootstrap-sass (= 2.3.1)
   bootswatch-rails
   capybara (= 1.1.2)
   chosen-rails

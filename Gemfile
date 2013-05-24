@@ -27,7 +27,7 @@ end
 # in production environments by default.
 group :assets do
   gem 'bootswatch-rails'
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass', '=2.3.1'
 #  gem 'less-rails'
   gem 'sass-rails',   '~> 3.2.5'
   gem 'coffee-rails', '~> 3.2.2'
