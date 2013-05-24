@@ -7,6 +7,8 @@
  <!--[if lte IE 8]>
      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
  <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <link href="css/glyphicons.css" rel="stylesheet">
 
     <%= javascript_include_tag "application" %>
      <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
@@ -14,9 +16,10 @@
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>    
   </head>
-  <body>
-    <%= render 'layouts/header' %>
-    <div id="main" role="main">
+  <body >    
+  <%= render 'layouts/header' %>
+  <%if controller_name != "static_pages" %>
+    <div id="main" role="main" class="<%= controller_name %> <%= action_name %>">
       <div class="container">
         <div class="content">
           <% flash.each do |key, value| %>
@@ -26,9 +29,14 @@
         </div>
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
-              <footer>
-              <%= yield :scripts %>
-            <%# render 'layouts/footer' %>
-          </footer>
+    <%else%>
+                  <%= yield %>
+
+    <%end%>
+
+    <footer>
+      <%= yield :scripts %>
+            <%= render 'layouts/footer' %>
+    </footer>
   </body>
 </html>

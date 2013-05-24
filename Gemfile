@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails'
-gem 'therubyracer'
 
 gem 'bcrypt-ruby', '3.0.1'
 gem 'rqrcode-rails3'
