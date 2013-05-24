@@ -24,10 +24,23 @@
 //= require_tree .
 
 jQuery(function($) {
+	      
+  	/* Activating Best In Place */
+  	jQuery(".best_in_place").best_in_place();
 
-    /* Activating Best In Place */
-  jQuery(".best_in_place").best_in_place();
+});
 
 
-})
 
+document.getElementById('resource_profile_id').onchange = function() {
+    if(this.selectedIndex != this.options.length - 1) {
+        return;
+    }
+    var new_name = prompt('Please enter a name');
+    if(!new_name.length) {
+        return;
+    }
+    var textbox = document.createElement('input');
+    textbox.value = new_name;
+    this.parentNode.appendChild(textbox); //parentNode is presumably the form
+};
