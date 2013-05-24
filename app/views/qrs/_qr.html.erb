@@ -1,0 +1,73 @@
+<div class="header">
+ <div class="pull-right">
+  <div class="pull-left">
+   <%= link_to url_for(:action => 'download', :controller => :qrs, :id => qr.id) , class: "pull-left " do%><i class="icon-download"></i>Download QR image<% end %><br>
+   <%= link_to [qr.collection, qr], method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-left " do%><i class="icon-remove-sign"></i>Remove QR<% end %><br>
+ </div>
+</div>
+<div>
+ <a href="<%= url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false) %>"><%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120")%></a>
+ <%= best_in_place qr, :qr_name, :type => :input, :classes => :qrtitle, :path => [qr.collection, qr] %>
+</div>
+</div>
+<table class="table table-condensed">
+  <tr>
+    <th>Resource Name</th>
+    <th>Profile</th>
+    <th>Content</th>
+
+    <th></th>
+  </tr>
+  <tr>
+    <%= form_for([qr.collection, qr, Resource.new], :html => { :class => 'form' }) do |f| %>
+
+    <td><%= f.text_field :name, placeholder:'The name of your resource'%></td>
+    <td><%= f.collection_select :profile_id, qr.collection.profiles, :id, :name, :include_blank => 'Uncategorized' %></td>
+    <td><%= f.select :content_type, {"URL" => "url", "Text" => "text", "Image" => :image, "Video" => :video} %></td>
+    <td><%= f.submit "Add", class:'btn btn-primary'%></td>
+    <% end %>
+  </tr>
+  <% qr.resources.each do |resource| %>
+  <tr>
+    <td><%= best_in_place resource, :name, :type => :input, :path => [qr.collection, qr, resource] %></td>
+    <td><%= best_in_place resource, :profile_id, :type => :select, :path => [qr.collection, qr, resource], :collection => ([["", "Uncategorized"]] + qr.collection.profiles.collect{|f| [f.id, f.name]}) %></td>
+    <td><%# best_in_place resource, :uri, :type => :input, :path => [qr.collection, qr, resource] %>
+      <%= ({"URL" => "url", "Text" => "text", "Image" => :image, "Video" => :video}).key(resource.content_type) %> 
+      <%= link_to "(edit)", edit_collection_qr_resource_path(qr.collection, qr, resource) %>
+    </td>
+    <td width="20px">
+      <%= link_to collection_qr_resource_path(qr.collection, resource.qr_id, resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-primary btn" do %>
+      <i class="icon-remove icon-white"></i>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>
+
+<% if false %>
+<% 
+
+maps = qr.localizations.all.to_gmaps4rails do |user, marker|
+  marker.infowindow render :partial => "place", :locals => {:place => user, :collection => collection, :qr => qr}
+end
+
+gmaps(:markers => {:data => maps}, :map_options => {auto_adjust: true, :id => "map"+qr.id.to_s})
+%>
+<%= form_for([qr.collection, qr, Localization.new], :html => { :class => 'form', "data-map" => "map"+qr.id.to_s }) do |f| %>
+<%= f.hidden_field :latitude %>
+<%= f.hidden_field :longitude %>
+<%= f.hidden_field :address %>
+<% end %>
+<td><div class="form-inline" style="text-align: right;"><%= text_field_tag :address, nil, placeholder:'Place address', "data-map" => "map"+qr.id.to_s%>
+  <%= button_tag "Search", class:'btn btn-primary btn-search-map', "data-map" => "map"+qr.id.to_s %></div></td>
+%>
+<% end %>
+<script>
+$(function() {
+$('.best_in_place').tooltip({
+  title: "Click to edit!",
+  placement: "right"
+})
+})
+</script>

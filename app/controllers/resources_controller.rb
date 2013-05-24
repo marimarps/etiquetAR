@@ -93,7 +93,7 @@ class ResourcesController < ApplicationController
     @resource.destroy
 
     respond_to do |format|
-      format.html { redirect_to @qr.collection, notice: 'Resource successfully destroyed.' }
+      format.html { redirect_to @resource.qr.collection, notice: 'Resource successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -106,12 +106,13 @@ class ResourcesController < ApplicationController
   end
 
   def post_comment
-    @resource = Resource.find(params[:id])
-    @comments = @resource.comments
-    @comment = @resource.comments.build(params[:comment])
+    @res = Resource.find(params[:id])
+    @comment = @res.comments.build(params[:comment])
     if @comment.save
       redirect_to url_for(controller: :resources, action: :comments, id: @comment.resource_id)
     else
+      @res = Resource.find(params[:id])
+      @comments = @res.comments
       render :comments
     end
   end
@@ -119,7 +120,7 @@ class ResourcesController < ApplicationController
   def comment_toggle_visibility
     @comment = Comment.find(params[:id])
     if @comment.resource.qr.collection.user == current_user
-      p "--------------------1----------------"
+      #p "--------------------1----------------"
       if @comment.is_visible?
         @comment.visible = false
       else

@@ -2,13 +2,16 @@
   <div class="navbar-inner">
     <div class="container">
       <%= link_to "etiquetAR", root_path, class: "brand blogo" %>
+      <ul class="nav">
+                  <% if signed_in? %>
+
+                    <li><%= link_to "Collections", collections_path %></li>
+                <% end %>
+      </ul>
       <nav>
         <ul class="nav pull-right">
           <% if signed_in? %>
-
-            <li><%= link_to "Home",    root_path %></li>
             <li><%= link_to "Help",    help_path %></li>
-            <li><%= link_to "Your TAGS", (current_user.collections.size == 1 ? current_user.collections.first : collections_path) %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= current_user.email %> <b class="caret"></b>

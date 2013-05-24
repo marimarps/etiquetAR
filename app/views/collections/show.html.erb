@@ -1,25 +1,97 @@
-<div class="span3">
-	<div>
-<span class="badge badge-inverse" style="margin-top: 15px">TIP:</span> Almost anything on this page can be edited by just clicking on it.<br>Try it with the title! 
+<div class="container">
+  <div class="row">
+    <div class="page-header">
+      <%= form_for([@collection, Qr.new], :html => { :class => 'form-inline pull-right' }) do |f| %>
+               <%= link_to collection_profiles_url(@collection), :class => [:profile_edit, "btn-primary", :btn], "data-toggle" => :ajaxmodal do %>Edit profiles<% end %>
+
+      <%= f.text_field :qr_name, placeholder:'QR name'%></td> 
+      <%= f.button "Add a new QR", type: "submit", class:'btn btn-primary' do %><%end%>
+      <% end %>
+      <h1>Collection: <%= @collection.name %></h1>
+    </div>
+  </div>
+<% if @collection.qrs.size == 0 %>
+<h2>You have no QRs in this collection. Add your first QR by using the form on the top!</h2>
+<% end %>
+  <div class="row">
+   <% @collection.qrs.each do |qr| %>
+   <div class="span3 well">
+    <div class="block">
+      <h2><%= qr.qr_name %></h2>
+      <a href="<%= url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false) %>">
+	<%= image_tag("http://chart.apis.google.com/chart?cht=qr&chl=#{url_for(:action => :go, :controller => :qrs, :id => qr.id, :only_path => false)}&chs=120x120&choe=UTF-8", :size => "120x120", :style => "display: block")%>
+      </a>
+	<span><%= pluralize(qr.resources.count, "resources") %></span>
+      <ul class="nav nav-list">
+        <li>
+         <%= link_to edit_collection_qr_url(qr.collection, qr), :class => [:qr_edit], "data-toggle" => :ajaxmodal do %>
+         <i class="icon-chevron-right"></i></i>Edit QR
+         <% end %>
+       </li>
+
+       <li> <%= link_to url_for(:action => 'download', :controller => :qrs, :id => qr.id) do%><i class="icon-download"></i>Download QR image<% end %></li>
+       <li>
+         <%= link_to [@collection, qr], method: :delete, data: { confirm: 'Are you sure?' } do%><i class="icon-remove-sign"></i>Remove QR<% end %><br></li>
+       </ul>
+     </div>
+     <div class="qrdetail" style="display: none">
+      <%# render :partial => "qrs/qr", :object => qr %>
+    </div>
+  </div>
+
+
+  <% end %>
 </div>
-<hr>
-	Your collections:
-        <ul class="nav nav-list">
-        <% current_user.collections.each do |col| %>
-          <li>
-          	<%= link_to col do %><i class="icon-chevron-right"></i> <% if col == @collection %><b><%end%><%= col.name %><% if col == @collection %></b><%end%><%end%>
-          </li>
-        <% end %> 
-         </ul>
-<%= link_to collections_path, class: "btn btn-primary" do %><i class="icon-wrench icon-white"></i> Manage your collections
-            	<%end%>
-</hr>
-
-
-
 </div>
 
-<div class="span9">
-<%= render :partial => "collection", :object => @collection %>
 
-</div>
+<script>
+/*$(function() {
+  $('.qr_edit').on("click", function() {
+    qr = $(this).closest(".well");
+    block = qr.find(".block");
+    detail = qr.find(".qrdetail");
+    qr.removeClass("span2").addClass("span12");
+    block.hide();
+    detail.show();
+    return false;
+  })
+});
+
+*/
+$(document).ready(function() {
+  
+// Support for AJAX loaded modal window.
+// Focuses on first input textbox after it loads the window.
+$('[data-toggle="ajaxmodal"]').click(function(e) {
+  e.preventDefault();
+  var url = $(this).attr('href')+"?ajax=1";
+    $.get(url, function(data) {
+      modal = $('<div class="modal fade">' + data + '</div>').filter('.modal').modal()
+      .css({
+        'width': function () { 
+          return ($(document).width() * .9) + 'px';  
+        },
+        'margin-left': function () { 
+          return -($(this).width() / 2); 
+        }
+      });
+      bip = modal.find('.best_in_place');
+      bip.tooltip({
+        title: "Click to edit!",
+        placement: "right"
+      });
+
+    })/*.success(function() { 
+      $('input:text:visible:first').focus(); 
+      $('.best_in_place').tooltip({
+        title: "Click to edit!",
+        placement: "right"
+      })
+    });*/
+  
+  return false;
+});
+  
+});
+</script>

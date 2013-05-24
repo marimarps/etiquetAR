@@ -15,7 +15,7 @@
 <%= f.hidden_field :profile %>
 <span>
 <label for="resource_content_type">Content type:
-<%= f.select :content_type, {"URL" => "url", "Text" => "text", "Image" => :image, "Video" => :video} %></label> 
+<%= f.select :content_type, {"URL" => "url", "Text" => "text", "Image" => "image", "Video" => "video"} %></label> 
 <%= hidden_field_tag :orig_content_type, "lol" %>
 </span>
 
